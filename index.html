@@ -512,7 +512,7 @@ function renderGrid(members) {
       </div>
       <div class="card-footer">
         ${m.village ? `<span class="village-tag">${m.village}</span>` : '<span></span>'}
-        <span class="member-id">#${m.uniqId ? m.uniqId.replace(/_+/g,' ').trim().split(' ').slice(0,2).join(' ') : m.id.slice(-6)}</span>
+
       </div>
     </div>`;
   }).join('');
