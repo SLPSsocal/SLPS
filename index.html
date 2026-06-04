@@ -27,123 +27,171 @@
     min-height: 100vh;
   }
 
+  /* ── HEADER ── */
   header {
     background: var(--deep);
-    padding: 28px 40px;
+    padding: 16px 20px;
     display: flex;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    gap: 12px;
     position: sticky;
     top: 0;
     z-index: 100;
     box-shadow: 0 2px 20px rgba(0,0,0,0.3);
   }
 
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   .logo-mark {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     background: var(--saffron);
-    border-radius: 12px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Playfair Display', serif;
     font-weight: 700;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     flex-shrink: 0;
   }
 
   .header-text h1 {
     font-family: 'Playfair Display', serif;
     color: white;
-    font-size: 22px;
+    font-size: 17px;
     font-weight: 700;
     line-height: 1.1;
   }
 
   .header-text p {
     color: rgba(255,255,255,0.5);
-    font-size: 12px;
+    font-size: 10px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-top: 2px;
   }
 
-  .search-bar {
-    margin-left: auto;
+  .header-controls {
     display: flex;
-    gap: 10px;
-    align-items: center;
+    gap: 8px;
+    width: 100%;
   }
 
-  .search-bar input {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 8px;
-    padding: 10px 16px;
-    color: white;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    width: 260px;
-    outline: none;
-    transition: all 0.2s;
-  }
-
-  .search-bar input::placeholder { color: rgba(255,255,255,0.35); }
-  .search-bar input:focus {
-    border-color: var(--saffron);
-    background: rgba(255,255,255,0.12);
-  }
-
-  select {
+  .header-controls input {
+    flex: 1;
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 8px;
     padding: 10px 14px;
     color: white;
     font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+    min-width: 0;
+  }
+
+  .header-controls input::placeholder { color: rgba(255,255,255,0.35); }
+  .header-controls input:focus {
+    border-color: var(--saffron);
+    background: rgba(255,255,255,0.12);
+  }
+
+  .header-controls select {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 10px;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
     font-size: 13px;
     outline: none;
     cursor: pointer;
     transition: all 0.2s;
+    flex-shrink: 0;
+    max-width: 140px;
   }
 
-  select option { background: #2a2218; color: white; }
-  select:focus { border-color: var(--saffron); }
+  .header-controls select option { background: #2a2218; color: white; }
+  .header-controls select:focus { border-color: var(--saffron); }
 
+  /* ── STATS BAR ── */
   .stats-bar {
     background: white;
     border-bottom: 1px solid var(--border);
-    padding: 12px 40px;
+    padding: 10px 16px;
     display: flex;
-    gap: 28px;
+    gap: 0;
+    align-items: stretch;
+    font-size: 11px;
+    color: var(--muted);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .stats-bar::-webkit-scrollbar { display: none; }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    font-size: 13px;
+    gap: 2px;
+    padding: 4px 10px;
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .stat:last-child {
+    border-right: none;
+    margin-left: auto;
+    padding-left: 16px;
+  }
+
+  .stat strong {
+    color: var(--deep);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     color: var(--muted);
   }
 
-  .stat { display: flex; gap: 6px; align-items: center; }
-  .stat strong { color: var(--deep); font-weight: 500; }
+  .stat-top {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
 
   .dot {
-    width: 8px; height: 8px;
+    width: 7px; height: 7px;
     border-radius: 50%;
     display: inline-block;
+    flex-shrink: 0;
   }
-  .dot-active { background: var(--active); }
-  .dot-life { background: var(--life); }
-  .dot-inactive { background: var(--inactive); }
 
+  /* ── MAIN ── */
   main {
-    padding: 32px 40px;
+    padding: 16px;
     max-width: 1600px;
     margin: 0 auto;
   }
 
   #loading {
     text-align: center;
-    padding: 80px 0;
+    padding: 60px 0;
     color: var(--muted);
     font-size: 15px;
   }
@@ -164,28 +212,31 @@
     background: #fff0f0;
     border: 1px solid #ffcccc;
     border-radius: 10px;
-    padding: 20px 24px;
-    margin: 40px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
     color: #c0392b;
     font-size: 14px;
     line-height: 1.6;
   }
 
+  /* ── GRID ── */
   #grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
+  /* ── CARD ── */
   .card {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: 14px;
     border: 1px solid var(--border);
-    padding: 22px 24px;
+    padding: 16px 18px;
     cursor: pointer;
     transition: all 0.2s;
     position: relative;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .card::before {
@@ -194,28 +245,32 @@
     top: 0; left: 0; right: 0;
     height: 3px;
     background: var(--border);
-    transition: all 0.2s;
   }
 
   .card.status-active::before { background: var(--active); }
   .card.status-life::before { background: var(--life); }
+  .card.status-annual::before { background: var(--saffron); }
 
-  .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-    border-color: var(--saffron-light);
+  @media (hover: hover) {
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      border-color: var(--saffron-light);
+    }
   }
+
+  .card:active { opacity: 0.85; }
 
   .card-header {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
-    margin-bottom: 14px;
+    gap: 12px;
+    margin-bottom: 12px;
   }
 
   .avatar {
-    width: 46px; height: 46px;
-    border-radius: 12px;
+    width: 42px; height: 42px;
+    border-radius: 10px;
     background: var(--saffron);
     display: flex;
     align-items: center;
@@ -223,11 +278,12 @@
     font-family: 'Playfair Display', serif;
     font-weight: 700;
     color: white;
-    font-size: 18px;
+    font-size: 16px;
     flex-shrink: 0;
   }
 
   .avatar.life-member { background: var(--life); }
+  .avatar.life-voting { background: #2255A4; }
   .avatar.inactive { background: #C5BAB0; }
 
   .card-name {
@@ -238,7 +294,7 @@
   .card-name h3 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.2;
     color: var(--deep);
   }
@@ -247,28 +303,34 @@
     font-size: 12px;
     color: var(--muted);
     margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .status-badge {
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 500;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    padding: 3px 8px;
+    padding: 3px 7px;
     border-radius: 20px;
     flex-shrink: 0;
     margin-top: 2px;
+    white-space: nowrap;
   }
 
   .badge-active { background: #E8F5EC; color: var(--active); }
   .badge-life { background: #F3EAF9; color: var(--life); }
-  .badge-inactive { background: #F2F2F2; color: var(--inactive); }
   .badge-voting { background: #EAF0F9; color: #2255A4; }
+  .badge-annual { background: #FEF3E7; color: var(--saffron); }
+  .badge-inactive { background: #F2F2F2; color: var(--inactive); }
+  .badge-youth { background: #FFF0F5; color: #C0397A; }
 
   .card-info {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
     font-size: 13px;
     color: var(--muted);
   }
@@ -276,42 +338,51 @@
   .info-row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
+    min-width: 0;
   }
 
   .info-row svg {
-    width: 13px; height: 13px;
+    width: 12px; height: 12px;
     flex-shrink: 0;
-    opacity: 0.6;
+    opacity: 0.55;
+  }
+
+  .info-row span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .card-footer {
-    margin-top: 14px;
-    padding-top: 12px;
+    margin-top: 12px;
+    padding-top: 10px;
     border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 11px;
-    color: var(--muted);
   }
 
   .village-tag {
-    background: rgba(232, 135, 26, 0.1);
+    background: rgba(232,135,26,0.1);
     color: var(--saffron);
-    padding: 3px 8px;
+    padding: 2px 8px;
     border-radius: 6px;
     font-weight: 500;
     font-size: 11px;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .member-id {
     font-size: 10px;
-    opacity: 0.5;
+    opacity: 0.4;
     font-family: monospace;
   }
 
-  /* Modal */
+  /* ── MODAL ── */
   #modal-overlay {
     display: none;
     position: fixed;
@@ -319,22 +390,31 @@
     background: rgba(26,20,16,0.7);
     z-index: 200;
     backdrop-filter: blur(4px);
-    align-items: center;
+    -webkit-backdrop-filter: blur(4px);
+    align-items: flex-end;
     justify-content: center;
-    padding: 20px;
+    padding: 0;
   }
 
   #modal-overlay.open { display: flex; }
 
   #modal {
     background: var(--card-bg);
-    border-radius: 20px;
-    max-width: 560px;
+    border-radius: 20px 20px 0 0;
     width: 100%;
-    max-height: 85vh;
+    max-height: 88vh;
     overflow-y: auto;
-    padding: 32px;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 20px 40px;
     position: relative;
+  }
+
+  .modal-drag-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 0 auto 16px;
   }
 
   #modal-close {
@@ -345,27 +425,28 @@
     border-radius: 8px;
     width: 32px; height: 32px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--muted);
     transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  #modal-close:hover { background: var(--saffron); color: white; }
+  #modal-close:active { background: var(--saffron); color: white; }
 
   .modal-header {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 24px;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
     padding-right: 40px;
   }
 
   .modal-avatar {
-    width: 64px; height: 64px;
-    border-radius: 16px;
+    width: 56px; height: 56px;
+    border-radius: 14px;
     background: var(--saffron);
     display: flex;
     align-items: center;
@@ -373,33 +454,33 @@
     font-family: 'Playfair Display', serif;
     font-weight: 700;
     color: white;
-    font-size: 26px;
+    font-size: 22px;
     flex-shrink: 0;
   }
 
   .modal-avatar.life-member { background: var(--life); }
+  .modal-avatar.life-voting { background: #2255A4; }
   .modal-avatar.inactive { background: #C5BAB0; }
 
   .modal-name h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
+    line-height: 1.2;
   }
 
   .modal-name .modal-spouse {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--muted);
-    margin-top: 4px;
+    margin-top: 3px;
   }
 
-  .modal-section {
-    margin-bottom: 20px;
-  }
+  .modal-section { margin-bottom: 18px; }
 
   .modal-section h4 {
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 500;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--saffron);
     margin-bottom: 10px;
@@ -411,10 +492,8 @@
     gap: 10px;
   }
 
-  .detail-item { }
-
   .detail-item label {
-    font-size: 10px;
+    font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--muted);
@@ -423,49 +502,185 @@
   }
 
   .detail-item span {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--deep);
-    font-weight: 400;
+    word-break: break-word;
   }
+
+  .modal-action-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .modal-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.15s;
+  }
+
+  .modal-action-btn:active { opacity: 0.7; }
+
+  .btn-call { background: #E8F5EC; color: var(--active); }
+  .btn-email { background: #FEF3E7; color: var(--saffron); }
+  .btn-profile { background: #EAF0F9; color: #2255A4; grid-column: 1/-1; }
 
   a { color: var(--saffron); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
   .no-results {
     text-align: center;
-    padding: 60px 0;
+    padding: 60px 20px;
     color: var(--muted);
     grid-column: 1 / -1;
   }
 
-  .no-results p { font-size: 15px; margin-top: 8px; }
+  .no-results p { font-size: 14px; margin-top: 8px; }
+
+  /* ── TABLET: 2 columns ── */
+  @media (min-width: 600px) {
+    header {
+      padding: 20px 28px;
+    }
+
+    .header-top { gap: 16px; }
+    .logo-mark { width: 44px; height: 44px; font-size: 19px; }
+    .header-text h1 { font-size: 19px; }
+
+    .header-controls input { font-size: 14px; }
+
+    main { padding: 24px 28px; }
+
+    #grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .stats-bar { padding: 10px 28px; gap: 0; }
+
+    #modal {
+      border-radius: 20px;
+      max-width: 520px;
+      max-height: 85vh;
+      margin: auto;
+      padding: 28px;
+    }
+
+    #modal-overlay {
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-drag-handle { display: none; }
+
+    #modal-close:hover { background: var(--saffron); color: white; }
+  }
+
+  /* ── DESKTOP: 3+ columns ── */
+  @media (min-width: 960px) {
+    header {
+      flex-direction: row;
+      align-items: center;
+      padding: 20px 40px;
+      gap: 20px;
+    }
+
+    .header-top { flex: 0 0 auto; }
+    .header-text h1 { font-size: 21px; }
+
+    .header-controls {
+      margin-left: auto;
+      width: auto;
+    }
+
+    .header-controls input { width: 240px; flex: none; }
+    .header-controls select { max-width: 160px; }
+
+    .stats-bar { padding: 10px 40px; font-size: 12px; }
+
+    .stat { flex-direction: row; gap: 6px; padding: 4px 16px; }
+    .stat strong { font-size: 13px; }
+    .stat-label { font-size: 12px; }
+
+    main { padding: 28px 40px; }
+
+    #grid {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-mark">S</div>
-  <div class="header-text">
-    <h1>Surti Leva Patidar Samaj</h1>
-    <p>Southern California — Member Directory</p>
+  <div class="header-top">
+    <div class="logo-mark">S</div>
+    <div class="header-text">
+      <h1>Surti Leva Patidar Samaj</h1>
+      <p>Southern California — Member Directory</p>
+    </div>
   </div>
-  <div class="search-bar">
-    <input type="text" id="search" placeholder="Search by name, city, village…" oninput="filterMembers()">
+  <div class="header-controls">
+    <input type="search" id="search" placeholder="Search name, city, village…" oninput="filterMembers()" autocomplete="off" autocorrect="off" spellcheck="false">
     <select id="status-filter" onchange="filterMembers()">
       <option value="">All Members</option>
-      <option value="active">Active Only</option>
-      <option value="life">Life Members</option>
-      <option value="annual">Annual Dues</option>
-      <option value="inactive">Non-Active</option>
+      <option value="Life Member - Active">Life · Active</option>
+      <option value="Life Member - Voting">Life · Voting</option>
+      <option value="Annual Dues Member Only">Annual Dues</option>
+      <option value="NON ACTIVE">Non-Active</option>
+      <option value="Life Member - Youth">Youth</option>
+      <option value="NON ACTIVE : Deceased">Deceased</option>
+      <option value="zBusiness">Business</option>
     </select>
   </div>
 </header>
 
 <div class="stats-bar" id="stats-bar">
-  <div class="stat"><span class="dot dot-active"></span><strong id="count-active">–</strong> Active</div>
-  <div class="stat"><span class="dot dot-life"></span><strong id="count-life">–</strong> Life Members</div>
-  <div class="stat"><span class="dot dot-inactive"></span><strong id="count-inactive">–</strong> Non-Active</div>
-  <div class="stat" style="margin-left:auto;"><strong id="count-shown">–</strong> showing</div>
+  <div class="stat">
+    <div class="stat-top"><span class="dot" style="background:#2A6B3C"></span><strong id="count-life-active">–</strong></div>
+    <span class="stat-label">Life · Active</span>
+  </div>
+  <div class="stat">
+    <div class="stat-top"><span class="dot" style="background:#2255A4"></span><strong id="count-life-voting">–</strong></div>
+    <span class="stat-label">Life · Voting</span>
+  </div>
+  <div class="stat">
+    <div class="stat-top"><span class="dot" style="background:#E8871A"></span><strong id="count-annual">–</strong></div>
+    <span class="stat-label">Annual Dues</span>
+  </div>
+  <div class="stat">
+    <div class="stat-top"><span class="dot" style="background:#9E9E9E"></span><strong id="count-inactive">–</strong></div>
+    <span class="stat-label">Non-Active</span>
+  </div>
+  <div class="stat">
+    <div class="stat-top"><span class="dot" style="background:#C0397A"></span><strong id="count-youth">–</strong></div>
+    <span class="stat-label">Youth</span>
+  </div>
+  <div class="stat">
+    <div class="stat-top"><span class="dot" style="background:#C0392B"></span><strong id="count-deceased">–</strong></div>
+    <span class="stat-label">Deceased</span>
+  </div>
+  <div class="stat">
+    <div class="stat-top"><span class="dot" style="background:#B0B0B0"></span><strong id="count-business">–</strong></div>
+    <span class="stat-label">Business</span>
+  </div>
+  <div class="stat" style="margin-left:auto; border-right:none;">
+    <strong id="count-shown">–</strong>
+    <span class="stat-label">Showing</span>
+  </div>
 </div>
 
 <main>
@@ -480,6 +695,7 @@
 <!-- Detail Modal -->
 <div id="modal-overlay" onclick="closeModal(event)">
   <div id="modal">
+    <div class="modal-drag-handle"></div>
     <button id="modal-close" onclick="document.getElementById('modal-overlay').classList.remove('open')">✕</button>
     <div id="modal-content"></div>
   </div>
@@ -539,24 +755,30 @@ function parseRecord(rec) {
 }
 
 function statusClass(m) {
-  const s = m.status.toLowerCase();
-  if (m.isLifeMember && (s.includes('active') || s.includes('voting'))) return 'status-life';
-  if (s.includes('annual dues') || (s.includes('active') && !s.includes('non'))) return 'status-active';
+  const s = m.status;
+  if (s === 'Life Member - Active') return 'status-life';
+  if (s === 'Life Member - Voting') return 'status-life';
+  if (s === 'Annual Dues Member Only') return 'status-annual';
   return '';
 }
 
 function badgeHTML(m) {
   const s = m.status;
-  if (s.includes('Life Member - Active')) return `<span class="status-badge badge-life">Life · Active</span>`;
-  if (s.includes('Life Member - Voting')) return `<span class="status-badge badge-voting">Life · Voting</span>`;
-  if (s.includes('Annual Dues')) return `<span class="status-badge badge-active">Annual Dues</span>`;
-  if (s.includes('NON ACTIVE')) return `<span class="status-badge badge-inactive">Non-Active</span>`;
+  if (s === 'Life Member - Active') return `<span class="status-badge badge-life">Life · Active</span>`;
+  if (s === 'Life Member - Voting') return `<span class="status-badge badge-voting">Life · Voting</span>`;
+  if (s === 'Life Member - Youth') return `<span class="status-badge badge-youth">Life · Youth</span>`;
+  if (s === 'Annual Dues Member Only') return `<span class="status-badge badge-annual">Annual Dues</span>`;
+  if (s === 'NON ACTIVE : Deceased') return `<span class="status-badge badge-inactive">Deceased</span>`;
+  if (s === 'NON ACTIVE') return `<span class="status-badge badge-inactive">Non-Active</span>`;
+  if (s === 'zBusiness') return `<span class="status-badge badge-inactive">Business</span>`;
   return `<span class="status-badge badge-inactive">${s || 'Unknown'}</span>`;
 }
 
 function avatarClass(m) {
-  if (m.isLifeMember && m.status.toLowerCase().includes('active')) return 'life-member';
-  if (m.status.toLowerCase().includes('non active') || m.status.toLowerCase().includes('non-active')) return 'inactive';
+  const s = m.status;
+  if (s === 'Life Member - Active') return 'life-member';
+  if (s === 'Life Member - Voting') return 'life-voting';
+  if (s.includes('NON ACTIVE')) return 'inactive';
   return '';
 }
 
@@ -570,7 +792,7 @@ function renderGrid(members) {
 
   if (!members.length) {
     grid.innerHTML = `<div class="no-results">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <p>No members match your search.</p>
     </div>`;
     return;
@@ -582,42 +804,44 @@ function renderGrid(members) {
         <div class="avatar ${avatarClass(m)}">${initials(m)}</div>
         <div class="card-name">
           <h3>${m.firstName} ${m.lastName}</h3>
-          ${m.spouseFirst ? `<div class="spouse">& ${m.spouseFirst} ${m.spouseLast}</div>` : ''}
+          ${m.spouseFirst ? `<div class="spouse">& ${m.spouseFirst}${m.spouseLast ? ' ' + m.spouseLast : ''}</div>` : ''}
         </div>
         ${badgeHTML(m)}
       </div>
       <div class="card-info">
         ${m.city ? `<div class="info-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          ${m.city}${m.state ? ', ' + m.state : ''}
+          <span>${m.city}${m.state ? ', ' + m.state : ''}</span>
         </div>` : ''}
         ${m.cell ? `<div class="info-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
-          ${m.cell}
+          <span>${m.cell}</span>
         </div>` : (m.home ? `<div class="info-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          ${m.home}
+          <span>${m.home}</span>
         </div>` : '')}
         ${m.email ? `<div class="info-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px">${m.email}</span>
+          <span>${m.email}</span>
         </div>` : ''}
       </div>
       <div class="card-footer">
         ${m.village ? `<span class="village-tag">${m.village}</span>` : '<span></span>'}
-        <span class="member-id">#${m.uniqId ? m.uniqId.replace(/_/g,' ').trim() : m.id.slice(-6)}</span>
+        <span class="member-id">#${m.uniqId ? m.uniqId.replace(/_+/g,' ').trim().split(' ').slice(0,2).join(' ') : m.id.slice(-6)}</span>
       </div>
     </div>
   `).join('');
 }
 
 function updateStats() {
-  const active = allMembers.filter(m => !m.status.toLowerCase().includes('non') && m.status !== '' && !m.isLifeMember).length;
-  const life = allMembers.filter(m => m.isLifeMember).length;
-  const inactive = allMembers.filter(m => m.status.toLowerCase().includes('non active')).length;
-  document.getElementById('count-active').textContent = active;
-  document.getElementById('count-life').textContent = life;
-  document.getElementById('count-inactive').textContent = inactive;
+  const count = val => allMembers.filter(m => m.status === val).length;
+  document.getElementById('count-life-active').textContent = count('Life Member - Active');
+  document.getElementById('count-life-voting').textContent = count('Life Member - Voting');
+  document.getElementById('count-annual').textContent = count('Annual Dues Member Only');
+  document.getElementById('count-inactive').textContent = count('NON ACTIVE');
+  document.getElementById('count-youth').textContent = count('Life Member - Youth');
+  document.getElementById('count-deceased').textContent = count('NON ACTIVE : Deceased');
+  document.getElementById('count-business').textContent = count('zBusiness');
 }
 
 function filterMembers() {
@@ -625,15 +849,9 @@ function filterMembers() {
   const sf = document.getElementById('status-filter').value;
 
   filtered = allMembers.filter(m => {
-    const matchQ = !q || [m.firstName, m.lastName, m.city, m.village, m.email, m.cell, m.spouseFirst, m.spouseLast]
+    const matchQ = !q || [m.firstName, m.lastName, m.city, m.village, m.email, m.cell, m.home, m.spouseFirst, m.spouseLast]
       .join(' ').toLowerCase().includes(q);
-
-    let matchS = true;
-    if (sf === 'active') matchS = m.status.includes('Active') && !m.status.includes('Life');
-    if (sf === 'life') matchS = m.isLifeMember;
-    if (sf === 'annual') matchS = m.status.includes('Annual Dues');
-    if (sf === 'inactive') matchS = m.status.includes('NON ACTIVE');
-
+    const matchS = !sf || m.status === sf;
     return matchQ && matchS;
   });
 
@@ -644,6 +862,7 @@ function openModal(id) {
   const m = allMembers.find(x => x.id === id);
   if (!m) return;
 
+  const phone = m.cell || m.home || '';
   const lastPayment = m.paymentHistory.length
     ? m.paymentHistory[m.paymentHistory.length - 1]
     : null;
@@ -653,30 +872,44 @@ function openModal(id) {
       <div class="modal-avatar ${avatarClass(m)}">${initials(m)}</div>
       <div class="modal-name">
         <h2>${m.firstName} ${m.lastName}</h2>
-        ${m.spouseFirst ? `<div class="modal-spouse">Spouse: ${m.spouseFirst} ${m.spouseLast}</div>` : ''}
+        ${m.spouseFirst ? `<div class="modal-spouse">& ${m.spouseFirst}${m.spouseLast ? ' ' + m.spouseLast : ''}</div>` : ''}
         <div style="margin-top:6px">${badgeHTML(m)}</div>
       </div>
     </div>
 
-    <div class="modal-section">
+    ${(phone || m.email) ? `
+    <div class="modal-action-row">
+      ${phone ? `<a class="modal-action-btn btn-call" href="tel:${phone.replace(/\D/g,'')}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call
+      </a>` : '<span></span>'}
+      ${m.email ? `<a class="modal-action-btn btn-email" href="mailto:${m.email}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Email
+      </a>` : '<span></span>'}
+      ${m.profileUrl ? `<a class="modal-action-btn btn-profile" href="${m.profileUrl}" target="_blank">View Full Profile →</a>` : ''}
+    </div>` : ''}
+
+    <div class="modal-section" style="margin-top:18px">
       <h4>Contact</h4>
       <div class="detail-grid">
         ${m.cell ? `<div class="detail-item"><label>Cell</label><span>${m.cell}</span></div>` : ''}
         ${m.home ? `<div class="detail-item"><label>Home</label><span>${m.home}</span></div>` : ''}
-        ${m.email ? `<div class="detail-item" style="grid-column:1/-1"><label>Email</label><span><a href="mailto:${m.email}">${m.email}</a></span></div>` : ''}
+        ${m.email ? `<div class="detail-item" style="grid-column:1/-1"><label>Email</label><span>${m.email}</span></div>` : ''}
         ${m.spouseMobile ? `<div class="detail-item"><label>Spouse Mobile</label><span>${m.spouseMobile}</span></div>` : ''}
-        ${m.spouseEmail ? `<div class="detail-item"><label>Spouse Email</label><span><a href="mailto:${m.spouseEmail}">${m.spouseEmail}</a></span></div>` : ''}
+        ${m.spouseEmail ? `<div class="detail-item" style="grid-column:1/-1"><label>Spouse Email</label><span>${m.spouseEmail}</span></div>` : ''}
       </div>
     </div>
 
+    ${(m.address || m.city) ? `
     <div class="modal-section">
       <h4>Address</h4>
       <div class="detail-grid">
         ${m.address ? `<div class="detail-item" style="grid-column:1/-1"><label>Street</label><span>${m.address}</span></div>` : ''}
         ${m.city ? `<div class="detail-item"><label>City</label><span>${m.city}</span></div>` : ''}
-        ${m.state ? `<div class="detail-item"><label>State</label><span>${m.state} ${m.zip || ''}</span></div>` : ''}
+        ${m.state ? `<div class="detail-item"><label>State / ZIP</label><span>${m.state} ${m.zip || ''}</span></div>` : ''}
       </div>
-    </div>
+    </div>` : ''}
 
     <div class="modal-section">
       <h4>Membership</h4>
@@ -687,14 +920,13 @@ function openModal(id) {
         ${m.spouseVillage ? `<div class="detail-item"><label>Spouse Village</label><span>${m.spouseVillage}</span></div>` : ''}
         ${m.membershipCode ? `<div class="detail-item"><label>Code</label><span>${m.membershipCode}</span></div>` : ''}
         ${lastPayment ? `<div class="detail-item"><label>Last Payment</label><span>${lastPayment}</span></div>` : ''}
-        ${m.paymentHistory.length ? `<div class="detail-item"><label>Payment Count</label><span>${m.paymentHistory.length} entries</span></div>` : ''}
+        ${m.paymentHistory.length ? `<div class="detail-item"><label>Payment History</label><span>${m.paymentHistory.length} entries</span></div>` : ''}
       </div>
     </div>
-
-    ${m.profileUrl ? `<div style="margin-top:8px"><a href="${m.profileUrl}" target="_blank" style="font-size:13px">View full profile →</a></div>` : ''}
   `;
 
   document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('modal').scrollTop = 0;
 }
 
 function closeModal(e) {
