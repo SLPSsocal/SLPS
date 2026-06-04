@@ -536,6 +536,7 @@
   .btn-call { background: #E8F5EC; color: var(--active); }
   .btn-email { background: #FEF3E7; color: var(--saffron); }
   .btn-profile { background: #EAF0F9; color: #2255A4; grid-column: 1/-1; }
+  .btn-update { background: #F3EAF9; color: var(--life); grid-column: 1/-1; font-size: 12px; }
 
   a { color: var(--saffron); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -749,7 +750,7 @@ function parseRecord(rec) {
     membershipCode: f['Membership Code'] || '',
     gender: f.gender || '',
     uniqId: f['UNIQ ID'] || '',
-    profileUrl: f.url || '',
+    profileUrl: `https://airtable.com/appts3pknGCDwe6bk/tblvbEMVk7zr24B2c/viwNrRzG9funeJggp/${rec.id}?blocks=hide`,
     paymentHistory: f['Payment History from archive DB'] || [],
   };
 }
@@ -829,6 +830,7 @@ function renderGrid(members) {
         ${m.village ? `<span class="village-tag">${m.village}</span>` : '<span></span>'}
         <span class="member-id">#${m.uniqId ? m.uniqId.replace(/_+/g,' ').trim().split(' ').slice(0,2).join(' ') : m.id.slice(-6)}</span>
       </div>
+      <a class="modal-action-btn btn-update" style="display:flex;margin-top:10px;text-decoration:none;" href="mailto:slps.socal@gmail.com?subject=Update%20Request%3A%20${encodeURIComponent(m.firstName + ' ' + m.lastName)}&body=Hello%2C%0A%0AI%20would%20like%20to%20request%20the%20following%20changes%20for%20${encodeURIComponent(m.firstName + ' ' + m.lastName)}%3A%0A%0A(Please%20describe%20the%20changes%20needed)%0A%0AThank%20you" onclick="event.stopPropagation()">Update Info</a>
     </div>
   `).join('');
 }
@@ -887,7 +889,7 @@ function openModal(id) {
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         Email
       </a>` : '<span></span>'}
-      ${m.profileUrl ? `<a class="modal-action-btn btn-profile" href="${m.profileUrl}" target="_blank">View Full Profile →</a>` : ''}
+      <a class="modal-action-btn btn-profile" href="${m.profileUrl}" target="_blank">Admin Edit</a>
     </div>` : ''}
 
     <div class="modal-section" style="margin-top:18px">
