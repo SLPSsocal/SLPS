@@ -600,7 +600,6 @@ function openModal(id) {
         <div class="detail-item"><label>Life Member</label><span>${m.isLifeMember ? 'Yes' : 'No'}</span></div>
         ${m.village        ? `<div class="detail-item"><label>Village</label><span>${m.village}</span></div>` : ''}
         ${m.membershipCode ? `<div class="detail-item"><label>Code</label><span>${m.membershipCode}</span></div>` : ''}
-        ${lastPayment      ? `<div class="detail-item"><label>Last Payment</label><span>${lastPayment}</span></div>` : ''}
         ${m.paymentHistory.length ? `<div class="detail-item" style="grid-column:1/-1"><label>Payment History</label><span>${m.paymentHistory.join(', ')}</span></div>` : ''}
       </div>
     </div>
