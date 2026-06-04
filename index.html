@@ -568,7 +568,6 @@ function openModal(id) {
     <div class="modal-action-row">
       ${phone  ? `<a class="modal-action-btn btn-call"  href="tel:${phone.replace(/\D/g,'')}">📞 Call</a>` : '<span></span>'}
       ${m.email ? `<a class="modal-action-btn btn-email" href="mailto:${m.email}">✉️ Email</a>` : '<span></span>'}
-      <a class="modal-action-btn" style="background:#F3EAF9;color:#7B3FA0;grid-column:1/-1;" href="${updateInfoHref(m)}">Update Info</a>
     </div>
 
     <div class="modal-section" style="margin-top:18px">
@@ -606,6 +605,7 @@ function openModal(id) {
       </div>
     </div>
 
+    <a class="modal-action-btn" style="background:#F3EAF9;color:#7B3FA0;display:flex;margin-top:8px;" href="${updateInfoHref(m)}">Request to Update Info</a>
     <a class="modal-action-btn btn-admin" style="margin-top:8px;display:flex;" href="${m.airtableUrl}" target="_blank">Admin Edit</a>
   `;
 
