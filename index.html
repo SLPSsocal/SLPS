@@ -354,13 +354,30 @@
 let allMembers = [];
 let filtered = [];
 
+const AIRTABLE_PAT = 'pat5wEycSpIBV2v9v.762c93702e0299de23094f169f6d3d2213d5c862bdbb793352044f7e7911be7b';
+const BASE_ID = 'appts3pknGCDwe6bk';
+const TABLE_ID = 'tblvbEMVk7zr24B2c';
+const VIEW_ID = 'viwNrRzG9funeJggp';
+
 async function loadMembers() {
   try {
-    const res = await fetch('/.netlify/functions/members');
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
-    const data = await res.json();
-    const records = data.records || data;
-    allMembers = records.map(parseRecord).filter(m => m.firstName);
+    let allRecords = [];
+    let offset = null;
+    do {
+      const url = new URL(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`);
+      url.searchParams.set('view', VIEW_ID);
+      url.searchParams.set('pageSize', '100');
+      if (offset) url.searchParams.set('offset', offset);
+      const res = await fetch(url.toString(), {
+        headers: { 'Authorization': `Bearer ${AIRTABLE_PAT}` }
+      });
+      if (!res.ok) throw new Error(`Airtable error ${res.status}: ${await res.text()}`);
+      const data = await res.json();
+      allRecords = allRecords.concat(data.records || []);
+      offset = data.offset || null;
+    } while (offset);
+
+    allMembers = allRecords.map(parseRecord).filter(m => m.firstName);
     updateStats();
     filtered = [...allMembers];
     renderGrid(filtered);
