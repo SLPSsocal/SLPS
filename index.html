@@ -270,6 +270,7 @@
   .btn-call    { background: #E8F5EC; color: var(--active); }
   .btn-email   { background: #FEF3E7; color: var(--saffron); }
   .btn-admin   { background: #EAF0F9; color: #2255A4; grid-column: 1/-1; }
+  .btn-log      { background: #E8F5EC; color: #2A6B3C; display:flex; margin-top:8px; }
 
   a { color: var(--saffron); text-decoration: none; }
 
@@ -277,6 +278,11 @@
   .no-results p { font-size: 14px; margin-top: 8px; }
 
   @media (min-width: 600px) {
+  #log-payment-sheet { border-radius: 20px; max-width: 680px; margin: auto; max-height: 88vh; }
+  #log-payment-overlay { align-items: center !important; padding: 20px; }
+}
+
+@media (min-width: 600px) {
     header { padding: 20px 28px; }
     .logo-mark { width: 44px; height: 44px; font-size: 19px; }
     .header-text h1 { font-size: 19px; }
@@ -370,6 +376,20 @@
   <div id="error-msg"></div>
   <div id="grid"></div>
 </main>
+
+<!-- Log Payment Modal -->
+<div id="log-payment-overlay" onclick="closeLogPayment(event)" style="display:none;position:fixed;inset:0;background:rgba(26,20,16,0.7);z-index:300;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);align-items:flex-end;justify-content:center;">
+  <div id="log-payment-sheet" style="background:#FDFAF6;border-radius:20px 20px 0 0;width:100%;max-height:92vh;display:flex;flex-direction:column;">
+    <div style="padding:16px 20px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+      <div style="width:40px;height:4px;background:#E8DDD0;border-radius:2px;margin:0 auto 4px;"></div>
+    </div>
+    <div style="padding:0 20px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:#1A1410;">Log Payment</h3>
+      <button onclick="document.getElementById('log-payment-overlay').style.display='none'" style="background:#E8DDD0;border:none;border-radius:8px;width:32px;height:32px;font-size:16px;cursor:pointer;color:#8C7B6B;">✕</button>
+    </div>
+    <iframe src="https://airtable.com/embed/appts3pknGCDwe6bk/shrQaEKHueNIFkV4M" style="flex:1;border:none;width:100%;min-height:500px;" allowfullscreen></iframe>
+  </div>
+</div>
 
 <div id="modal-overlay" onclick="closeModal(event)">
   <div id="modal">
@@ -604,12 +624,19 @@ function openModal(id) {
       </div>
     </div>
 
+    <button class="modal-action-btn btn-log" onclick="document.getElementById('log-payment-overlay').style.display='flex'">Log Payment</button>
     <a class="modal-action-btn" style="background:#F3EAF9;color:#7B3FA0;display:flex;margin-top:8px;" href="${updateInfoHref(m)}">Request to Update Info</a>
     <a class="modal-action-btn btn-admin" style="margin-top:8px;display:flex;" href="${m.airtableUrl}" target="_blank">Admin Edit</a>
   `;
 
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('modal').scrollTop = 0;
+}
+
+function closeLogPayment(e) {
+  if (e.target === document.getElementById('log-payment-overlay')) {
+    document.getElementById('log-payment-overlay').style.display = 'none';
+  }
 }
 
 function closeModal(e) {
