@@ -4,305 +4,714 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SLPS Community Directory</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F7F5F0;--card:#fff;--border:#E5E0D8;--text:#1A1714;--muted:#7A736A;--faint:#B0A89E;--accent:#C1440E;--life-bg:#EAF3DE;--life-c:#27500A;--annual-bg:#E6F1FB;--annual-c:#0C447C;--inactive-bg:#F1EFE8;--inactive-c:#5F5E5A;--radius:14px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-header{background:var(--text);color:#fff;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-header h1{font-family:'DM Serif Display',serif;font-size:2rem;font-weight:400;margin-bottom:4px}
-header p{font-size:13px;color:#B0A89E}
-#refresh-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 16px;border-radius:8px;font-family:inherit;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s}
-#refresh-btn:hover{background:rgba(255,255,255,.22)}
-#refresh-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
-#controls{background:#fff;border-bottom:1px solid var(--border);padding:.9rem 2rem;display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:0;z-index:10}
-#sw{flex:1;min-width:200px;position:relative}
-#sw svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--faint);fill:none;stroke-width:2}
-input[type=text]{width:100%;padding:9px 12px 9px 34px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s}
-input[type=text]:focus{border-color:var(--accent);background:#fff}
-select{padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:13px;background:var(--bg);color:var(--text);outline:none;cursor:pointer;min-width:140px}
-select:focus{border-color:var(--accent)}
-#stats{padding:.5rem 2rem;font-size:12px;color:var(--faint);background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;padding:1.5rem 2rem}
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.1rem;cursor:pointer;transition:box-shadow .15s,transform .1s,border-color .15s}
-.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.09);transform:translateY(-2px);border-color:#C8C0B5}
-.card-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
-.card-name{font-size:15px;font-weight:500;line-height:1.3}
-.card-village{font-size:11px;color:var(--muted);margin-top:2px}
-.sect{border-top:1px solid var(--border);padding-top:9px;margin-top:2px;display:flex;flex-direction:column;gap:5px}
-.dr{display:flex;align-items:flex-start;gap:7px;font-size:12px}
-.di{width:13px;height:13px;flex-shrink:0;margin-top:1px;stroke:var(--faint);fill:none;stroke-width:1.8}
-.dt{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:240px}
-.dt a{color:var(--muted);text-decoration:none}
-.dt a:hover{color:var(--accent)}
-.card-foot{margin-top:9px;display:flex;flex-wrap:wrap;gap:5px}
-.badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
-#loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 2rem;gap:1rem}
-.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-#loading p{font-size:14px;color:var(--muted)}
-#error-box{margin:2rem;background:#FDF1EC;border:1px solid #F0C4AD;border-radius:var(--radius);padding:1.5rem;display:none}
-#error-box h3{font-size:15px;font-weight:500;color:var(--accent);margin-bottom:.5rem}
-#error-box p{font-size:13px;color:var(--muted);line-height:1.6;word-break:break-word}
-#overlay{display:none;position:fixed;inset:0;background:rgba(26,23,20,.5);z-index:100;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto}
-#overlay.open{display:flex}
-#modal{background:var(--card);border-radius:var(--radius);max-width:500px;width:100%;margin:auto}
-#mhdr{background:var(--text);border-radius:var(--radius) var(--radius) 0 0;padding:1.4rem;display:flex;align-items:center;gap:14px}
-#mav{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;flex-shrink:0;border:2px solid rgba(255,255,255,.2)}
-#mname{font-family:'DM Serif Display',serif;font-size:19px;font-weight:400;color:#fff}
-#msub{font-size:12px;color:#B0A89E;margin-top:3px}
-#mcls{margin-left:auto;background:rgba(255,255,255,.12);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-#mcls:hover{background:rgba(255,255,255,.25)}
-#mbody{padding:1.4rem}
-.msect{margin-bottom:1.2rem}
-.msect-title{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);font-weight:500;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
-.fg2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-.fg{margin-bottom:.6rem}
-.fl{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin-bottom:2px;font-weight:500}
-.fv{font-size:13px;color:var(--text)}
-.fv a{color:var(--accent);text-decoration:none}
-.fv a:hover{text-decoration:underline}
-@media(max-width:600px){header,#controls{padding-left:1rem;padding-right:1rem}#stats{padding:.5rem 1rem}#grid{padding:1rem;grid-template-columns:1fr}.fg2{grid-template-columns:1fr}}
+  :root {
+    --saffron: #E8871A;
+    --saffron-light: #F5A94B;
+    --deep: #1A1410;
+    --card-bg: #FDFAF6;
+    --border: #E8DDD0;
+    --muted: #8C7B6B;
+    --active: #2A6B3C;
+    --inactive: #9E9E9E;
+    --life: #7B3FA0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #F5EFE6;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--deep);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--deep);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+
+  .logo-mark {
+    width: 48px;
+    height: 48px;
+    background: var(--saffron);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .header-text p {
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .search-bar {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .search-bar input {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 16px;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    width: 260px;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .search-bar input::placeholder { color: rgba(255,255,255,0.35); }
+  .search-bar input:focus {
+    border-color: var(--saffron);
+    background: rgba(255,255,255,0.12);
+  }
+
+  select {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  select option { background: #2a2218; color: white; }
+  select:focus { border-color: var(--saffron); }
+
+  .stats-bar {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 40px;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .stat { display: flex; gap: 6px; align-items: center; }
+  .stat strong { color: var(--deep); font-weight: 500; }
+
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot-active { background: var(--active); }
+  .dot-life { background: var(--life); }
+  .dot-inactive { background: var(--inactive); }
+
+  main {
+    padding: 32px 40px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  #loading {
+    text-align: center;
+    padding: 80px 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--saffron);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  #error-msg {
+    display: none;
+    background: #fff0f0;
+    border: 1px solid #ffcccc;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 40px 0;
+    color: #c0392b;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  #grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 22px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--border);
+    transition: all 0.2s;
+  }
+
+  .card.status-active::before { background: var(--active); }
+  .card.status-life::before { background: var(--life); }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border-color: var(--saffron-light);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .avatar {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    background: var(--saffron);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: white;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .avatar.life-member { background: var(--life); }
+  .avatar.inactive { background: #C5BAB0; }
+
+  .card-name {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-name h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--deep);
+  }
+
+  .card-name .spouse {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .status-badge {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .badge-active { background: #E8F5EC; color: var(--active); }
+  .badge-life { background: #F3EAF9; color: var(--life); }
+  .badge-inactive { background: #F2F2F2; color: var(--inactive); }
+  .badge-voting { background: #EAF0F9; color: #2255A4; }
+
+  .card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .info-row svg {
+    width: 13px; height: 13px;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .card-footer {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .village-tag {
+    background: rgba(232, 135, 26, 0.1);
+    color: var(--saffron);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 11px;
+  }
+
+  .member-id {
+    font-size: 10px;
+    opacity: 0.5;
+    font-family: monospace;
+  }
+
+  /* Modal */
+  #modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,20,16,0.7);
+    z-index: 200;
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  #modal-overlay.open { display: flex; }
+
+  #modal {
+    background: var(--card-bg);
+    border-radius: 20px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 32px;
+    position: relative;
+  }
+
+  #modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: var(--border);
+    border: none;
+    border-radius: 8px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+
+  #modal-close:hover { background: var(--saffron); color: white; }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-right: 40px;
+  }
+
+  .modal-avatar {
+    width: 64px; height: 64px;
+    border-radius: 16px;
+    background: var(--saffron);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: white;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+
+  .modal-avatar.life-member { background: var(--life); }
+  .modal-avatar.inactive { background: #C5BAB0; }
+
+  .modal-name h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .modal-name .modal-spouse {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .modal-section {
+    margin-bottom: 20px;
+  }
+
+  .modal-section h4 {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 10px;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .detail-item { }
+
+  .detail-item label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .detail-item span {
+    font-size: 14px;
+    color: var(--deep);
+    font-weight: 400;
+  }
+
+  a { color: var(--saffron); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .no-results {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--muted);
+    grid-column: 1 / -1;
+  }
+
+  .no-results p { font-size: 15px; margin-top: 8px; }
 </style>
 </head>
 <body>
-<header>
-  <div>
-    <h1>SLPS Community Directory</h1>
-    <p id="hcount">Loading…</p>
-  </div>
-  <button id="refresh-btn" onclick="loadData()">
-    <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-    Refresh
-  </button>
-</header>
-<div id="controls" style="display:none">
-  <div id="sw">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" id="search" placeholder="Search name, village, city, email, spouse…">
-  </div>
-  <select id="fsel"><option value="">All statuses</option></select>
-  <select id="vsel"><option value="">All villages</option></select>
-  <select id="ssel">
-    <option value="az">Sort: A–Z</option>
-    <option value="za">Sort: Z–A</option>
-    <option value="city">Sort: city</option>
-    <option value="village">Sort: village</option>
-  </select>
-</div>
-<div id="stats" style="display:none">
-  <span id="stats-text"></span>
-  <span id="last-updated" style="font-size:11px;color:var(--faint)"></span>
-</div>
-<div id="error-box"><h3>Could not load data</h3><p id="error-msg"></p></div>
-<div id="loading"><div class="spinner"></div><p>Loading members from Airtable…</p></div>
-<div id="grid" style="display:none"></div>
 
-<div id="overlay">
+<header>
+  <div class="logo-mark">S</div>
+  <div class="header-text">
+    <h1>Surti Leva Patidar Samaj</h1>
+    <p>Southern California — Member Directory</p>
+  </div>
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Search by name, city, village…" oninput="filterMembers()">
+    <select id="status-filter" onchange="filterMembers()">
+      <option value="">All Members</option>
+      <option value="active">Active Only</option>
+      <option value="life">Life Members</option>
+      <option value="annual">Annual Dues</option>
+      <option value="inactive">Non-Active</option>
+    </select>
+  </div>
+</header>
+
+<div class="stats-bar" id="stats-bar">
+  <div class="stat"><span class="dot dot-active"></span><strong id="count-active">–</strong> Active</div>
+  <div class="stat"><span class="dot dot-life"></span><strong id="count-life">–</strong> Life Members</div>
+  <div class="stat"><span class="dot dot-inactive"></span><strong id="count-inactive">–</strong> Non-Active</div>
+  <div class="stat" style="margin-left:auto;"><strong id="count-shown">–</strong> showing</div>
+</div>
+
+<main>
+  <div id="loading">
+    <div class="spinner"></div>
+    Loading members…
+  </div>
+  <div id="error-msg"></div>
+  <div id="grid"></div>
+</main>
+
+<!-- Detail Modal -->
+<div id="modal-overlay" onclick="closeModal(event)">
   <div id="modal">
-    <div id="mhdr">
-      <div id="mav"></div>
-      <div><div id="mname"></div><div id="msub"></div></div>
-      <button id="mcls">✕</button>
-    </div>
-    <div id="mbody"></div>
+    <button id="modal-close" onclick="document.getElementById('modal-overlay').classList.remove('open')">✕</button>
+    <div id="modal-content"></div>
   </div>
 </div>
 
 <script>
-var members=[], current=[];
-var AVC=[{bg:'#E6F1FB',c:'#0C447C'},{bg:'#E1F5EE',c:'#085041'},{bg:'#EEEDFE',c:'#3C3489'},{bg:'#FAEEDA',c:'#633806'},{bg:'#FAECE7',c:'#712B13'},{bg:'#EAF3DE',c:'#27500A'},{bg:'#FBEAF0',c:'#72243E'}];
+let allMembers = [];
+let filtered = [];
 
-function hc(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))&0xffff;return AVC[h%AVC.length];}
-function ini(s){return(s||'?').trim().split(/\s+/).slice(0,2).map(function(w){return w[0]?w[0].toUpperCase():'';}).join('')||'?';}
-function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function f(rec,field){return(rec.fields&&rec.fields[field])||'';}
-
-function statusLabel(s){
-  if(!s)return'';
-  if(s.indexOf('Active')>-1||s==='M')return'Life Member';
-  if(s.indexOf('Voting')>-1||s==='V'||s==='N'||s==='O'||s==='Y'||s==='S'||s==='E')return'Life Member';
-  if(s.indexOf('Annual')>-1||s==='A')return'Annual Dues';
-  if(s.indexOf('NON')>-1||s==='NON ACTIVE')return'NON ACTIVE';
-  return s;
-}
-function statusColor(s){
-  var l=statusLabel(s);
-  if(l==='Life Member')return['var(--life-bg)','var(--life-c)'];
-  if(l==='Annual Dues')return['var(--annual-bg)','var(--annual-c)'];
-  return['var(--inactive-bg)','var(--inactive-c)'];
-}
-
-function parseRecords(records){
-  return records.map(function(rec){
-    var fn=f(rec,'First Name'), ln=f(rec,'Last Name');
-    var name=(fn+' '+ln).trim()||f(rec,'Name')||'';
-    if(!name)return null;
-    return{
-      name:           name,
-      status:         f(rec,'Membership Status')||f(rec,'Status')||'',
-      email:          f(rec,'Email')||f(rec,'Primary Email')||'',
-      phone:          f(rec,'Home Phone')||f(rec,'Cell Phone')||f(rec,'Phone')||'',
-      address:        f(rec,'Address')||f(rec,'Street Address')||'',
-      city:           f(rec,'City')||'',
-      state:          f(rec,'State')||'CA',
-      village:        f(rec,'Village')||f(rec,'Husband Village')||'',
-      spouse:         f(rec,'Spouse Name')||f(rec,'Spouse First Name')||'',
-      spouse_phone:   f(rec,'Spouse Cell')||f(rec,'Spouse Phone')||'',
-      spouse_village: f(rec,'Spouse Village')||f(rec,'Wife Village')||'',
-      spouse_email:   f(rec,'Spouse Email')||'',
-      family:         ln||'',
-      raw:            rec.fields
-    };
-  }).filter(Boolean);
+async function loadMembers() {
+  try {
+    const res = await fetch('/.netlify/functions/members');
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    const data = await res.json();
+    const records = data.records || data;
+    allMembers = records.map(parseRecord).filter(m => m.firstName);
+    updateStats();
+    filtered = [...allMembers];
+    renderGrid(filtered);
+    document.getElementById('loading').style.display = 'none';
+  } catch(e) {
+    document.getElementById('loading').style.display = 'none';
+    const err = document.getElementById('error-msg');
+    err.style.display = 'block';
+    err.innerHTML = `<strong>Could not load members.</strong><br>${e.message}<br><br>
+      <small>Check that the Netlify function is deployed and AIRTABLE_PAT is set.</small>`;
+  }
 }
 
-function showError(msg){
-  document.getElementById('loading').style.display='none';
-  document.getElementById('error-box').style.display='block';
-  document.getElementById('error-msg').textContent=msg;
+function parseRecord(rec) {
+  const f = rec.fields || {};
+  return {
+    id: rec.id,
+    firstName: f.member_FirstName || '',
+    lastName: f.member_LastName || '',
+    spouseFirst: f.member_SpouseName || '',
+    spouseLast: f.member_SpouseLastName || '',
+    spouseEmail: f.member_SpouseEmailAddress || '',
+    spouseMobile: f.member_SpouseMobilePhone || '',
+    email: f.member_EmailAddress || '',
+    cell: f.member_CellPhone || '',
+    home: f.member_HomePhone || '',
+    address: f.member_Address1 || '',
+    city: f.member_City || '',
+    state: f.member_State || '',
+    zip: f.member_Zip || '',
+    village: f.member_Village || '',
+    spouseVillage: f.member_SpouseVillage || '',
+    status: f['Current Status'] || '',
+    isLifeMember: f['Life Member?'] === 'Yes',
+    membershipCode: f['Membership Code'] || '',
+    gender: f.gender || '',
+    uniqId: f['UNIQ ID'] || '',
+    profileUrl: f.url || '',
+    paymentHistory: f['Payment History from archive DB'] || [],
+  };
 }
 
-function loadData(){
-  document.getElementById('loading').style.display='flex';
-  document.getElementById('grid').style.display='none';
-  document.getElementById('controls').style.display='none';
-  document.getElementById('stats').style.display='none';
-  document.getElementById('error-box').style.display='none';
-
-  fetch('/.netlify/functions/members')
-    .then(function(r){
-      return r.json().then(function(data){
-        return{ok:r.ok, status:r.status, data:data};
-      });
-    })
-    .then(function(res){
-      if(!res.ok){
-        showError('Error '+res.status+': '+JSON.stringify(res.data));
-        return;
-      }
-      members=parseRecords(res.data.records||[]);
-      document.getElementById('hcount').textContent=members.length+' members';
-      document.getElementById('last-updated').textContent='Updated '+new Date().toLocaleTimeString();
-      buildFilters();
-      document.getElementById('loading').style.display='none';
-      document.getElementById('controls').style.display='flex';
-      document.getElementById('stats').style.display='flex';
-      document.getElementById('grid').style.display='grid';
-      go();
-    })
-    .catch(function(err){
-      showError('Network error: '+err.message);
-    });
+function statusClass(m) {
+  const s = m.status.toLowerCase();
+  if (m.isLifeMember && (s.includes('active') || s.includes('voting'))) return 'status-life';
+  if (s.includes('annual dues') || (s.includes('active') && !s.includes('non'))) return 'status-active';
+  return '';
 }
 
-function buildFilters(){
-  var fsel=document.getElementById('fsel');
-  var vsel=document.getElementById('vsel');
-  fsel.innerHTML='<option value="">All statuses</option>';
-  vsel.innerHTML='<option value="">All villages</option>';
-  var statuses=[...new Set(members.map(function(m){return statusLabel(m.status);}).filter(Boolean))].sort();
-  var villages=[...new Set(members.map(function(m){return m.village;}).filter(Boolean))].sort();
-  statuses.forEach(function(s){var o=document.createElement('option');o.value=o.textContent=s;fsel.appendChild(o);});
-  villages.forEach(function(v){var o=document.createElement('option');o.value=o.textContent=v;vsel.appendChild(o);});
+function badgeHTML(m) {
+  const s = m.status;
+  if (s.includes('Life Member - Active')) return `<span class="status-badge badge-life">Life · Active</span>`;
+  if (s.includes('Life Member - Voting')) return `<span class="status-badge badge-voting">Life · Voting</span>`;
+  if (s.includes('Annual Dues')) return `<span class="status-badge badge-active">Annual Dues</span>`;
+  if (s.includes('NON ACTIVE')) return `<span class="status-badge badge-inactive">Non-Active</span>`;
+  return `<span class="status-badge badge-inactive">${s || 'Unknown'}</span>`;
 }
 
-function go(){
-  var q=document.getElementById('search').value.toLowerCase().trim();
-  var fv=document.getElementById('fsel').value;
-  var vv=document.getElementById('vsel').value;
-  var sv=document.getElementById('ssel').value;
-  var res=members.filter(function(m){
-    if(q){var t=[m.name,m.village,m.city,m.email,m.phone,m.address,m.spouse,m.family,m.spouse_phone,m.spouse_village,m.spouse_email].join(' ').toLowerCase();if(t.indexOf(q)===-1)return false;}
-    if(fv&&statusLabel(m.status)!==fv)return false;
-    if(vv&&m.village!==vv)return false;
-    return true;
+function avatarClass(m) {
+  if (m.isLifeMember && m.status.toLowerCase().includes('active')) return 'life-member';
+  if (m.status.toLowerCase().includes('non active') || m.status.toLowerCase().includes('non-active')) return 'inactive';
+  return '';
+}
+
+function initials(m) {
+  return ((m.firstName[0] || '') + (m.lastName[0] || '')).toUpperCase();
+}
+
+function renderGrid(members) {
+  const grid = document.getElementById('grid');
+  document.getElementById('count-shown').textContent = members.length;
+
+  if (!members.length) {
+    grid.innerHTML = `<div class="no-results">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <p>No members match your search.</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = members.map(m => `
+    <div class="card ${statusClass(m)}" onclick="openModal('${m.id}')">
+      <div class="card-header">
+        <div class="avatar ${avatarClass(m)}">${initials(m)}</div>
+        <div class="card-name">
+          <h3>${m.firstName} ${m.lastName}</h3>
+          ${m.spouseFirst ? `<div class="spouse">& ${m.spouseFirst} ${m.spouseLast}</div>` : ''}
+        </div>
+        ${badgeHTML(m)}
+      </div>
+      <div class="card-info">
+        ${m.city ? `<div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${m.city}${m.state ? ', ' + m.state : ''}
+        </div>` : ''}
+        ${m.cell ? `<div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+          ${m.cell}
+        </div>` : (m.home ? `<div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          ${m.home}
+        </div>` : '')}
+        ${m.email ? `<div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px">${m.email}</span>
+        </div>` : ''}
+      </div>
+      <div class="card-footer">
+        ${m.village ? `<span class="village-tag">${m.village}</span>` : '<span></span>'}
+        <span class="member-id">#${m.uniqId ? m.uniqId.replace(/_/g,' ').trim() : m.id.slice(-6)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateStats() {
+  const active = allMembers.filter(m => !m.status.toLowerCase().includes('non') && m.status !== '' && !m.isLifeMember).length;
+  const life = allMembers.filter(m => m.isLifeMember).length;
+  const inactive = allMembers.filter(m => m.status.toLowerCase().includes('non active')).length;
+  document.getElementById('count-active').textContent = active;
+  document.getElementById('count-life').textContent = life;
+  document.getElementById('count-inactive').textContent = inactive;
+}
+
+function filterMembers() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const sf = document.getElementById('status-filter').value;
+
+  filtered = allMembers.filter(m => {
+    const matchQ = !q || [m.firstName, m.lastName, m.city, m.village, m.email, m.cell, m.spouseFirst, m.spouseLast]
+      .join(' ').toLowerCase().includes(q);
+
+    let matchS = true;
+    if (sf === 'active') matchS = m.status.includes('Active') && !m.status.includes('Life');
+    if (sf === 'life') matchS = m.isLifeMember;
+    if (sf === 'annual') matchS = m.status.includes('Annual Dues');
+    if (sf === 'inactive') matchS = m.status.includes('NON ACTIVE');
+
+    return matchQ && matchS;
   });
-  if(sv==='za')res.sort(function(a,b){return b.name.localeCompare(a.name);});
-  else if(sv==='city')res.sort(function(a,b){return(a.city||'').localeCompare(b.city||'');});
-  else if(sv==='village')res.sort(function(a,b){return(a.village||'').localeCompare(b.village||'');});
-  else res.sort(function(a,b){return a.name.localeCompare(b.name);});
-  current=res;
-  document.getElementById('stats-text').textContent='Showing '+res.length+' of '+members.length+' members';
-  render(res);
+
+  renderGrid(filtered);
 }
 
-var IC={
-  phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16v.92z"/>',
-  mail:'<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
-  pin:'<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
-  user:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'
-};
-function dr(icon,content){return'<div class="dr"><svg class="di" viewBox="0 0 24 24">'+IC[icon]+'</svg><span class="dt">'+content+'</span></div>';}
+function openModal(id) {
+  const m = allMembers.find(x => x.id === id);
+  if (!m) return;
 
-function render(rs){
-  var grid=document.getElementById('grid');
-  if(!rs.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--muted);font-size:15px">No members match your search.</div>';return;}
-  var html='';
-  for(var i=0;i<rs.length;i++){
-    var m=rs[i],col=hc(m.name),sc=statusColor(m.status);
-    var addr=[m.address,m.city].filter(Boolean).join(', ');
-    html+='<div class="card" onclick="openM('+i+')"><div class="card-top"><div class="av" style="background:'+col.bg+';color:'+col.c+'">'+ini(m.name)+'</div>';
-    html+='<div><div class="card-name">'+esc(m.name)+'</div><div class="card-village">'+esc(m.village||m.city||'')+'</div></div></div>';
-    html+='<div class="sect">';
-    if(m.phone)html+=dr('phone','<a href="tel:'+esc(m.phone)+'">'+esc(m.phone)+'</a>');
-    if(m.email)html+=dr('mail','<a href="mailto:'+esc(m.email)+'">'+esc(m.email)+'</a>');
-    if(addr)html+=dr('pin',esc(addr));
-    if(m.spouse){var si=esc(m.spouse);if(m.spouse_village)si+=' · '+esc(m.spouse_village);html+=dr('user',si);}
-    html+='</div><div class="card-foot"><span class="badge" style="background:'+sc[0]+';color:'+sc[1]+'">'+esc(statusLabel(m.status))+'</span>';
-    if(m.family&&m.family!=='Patel')html+='<span class="badge" style="background:var(--inactive-bg);color:var(--inactive-c)">'+esc(m.family)+'</span>';
-    html+='</div></div>';
-  }
-  grid.innerHTML=html;
+  const lastPayment = m.paymentHistory.length
+    ? m.paymentHistory[m.paymentHistory.length - 1]
+    : null;
+
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-header">
+      <div class="modal-avatar ${avatarClass(m)}">${initials(m)}</div>
+      <div class="modal-name">
+        <h2>${m.firstName} ${m.lastName}</h2>
+        ${m.spouseFirst ? `<div class="modal-spouse">Spouse: ${m.spouseFirst} ${m.spouseLast}</div>` : ''}
+        <div style="margin-top:6px">${badgeHTML(m)}</div>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Contact</h4>
+      <div class="detail-grid">
+        ${m.cell ? `<div class="detail-item"><label>Cell</label><span>${m.cell}</span></div>` : ''}
+        ${m.home ? `<div class="detail-item"><label>Home</label><span>${m.home}</span></div>` : ''}
+        ${m.email ? `<div class="detail-item" style="grid-column:1/-1"><label>Email</label><span><a href="mailto:${m.email}">${m.email}</a></span></div>` : ''}
+        ${m.spouseMobile ? `<div class="detail-item"><label>Spouse Mobile</label><span>${m.spouseMobile}</span></div>` : ''}
+        ${m.spouseEmail ? `<div class="detail-item"><label>Spouse Email</label><span><a href="mailto:${m.spouseEmail}">${m.spouseEmail}</a></span></div>` : ''}
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Address</h4>
+      <div class="detail-grid">
+        ${m.address ? `<div class="detail-item" style="grid-column:1/-1"><label>Street</label><span>${m.address}</span></div>` : ''}
+        ${m.city ? `<div class="detail-item"><label>City</label><span>${m.city}</span></div>` : ''}
+        ${m.state ? `<div class="detail-item"><label>State</label><span>${m.state} ${m.zip || ''}</span></div>` : ''}
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Membership</h4>
+      <div class="detail-grid">
+        <div class="detail-item"><label>Status</label><span>${m.status}</span></div>
+        <div class="detail-item"><label>Life Member</label><span>${m.isLifeMember ? 'Yes' : 'No'}</span></div>
+        ${m.village ? `<div class="detail-item"><label>Village</label><span>${m.village}</span></div>` : ''}
+        ${m.spouseVillage ? `<div class="detail-item"><label>Spouse Village</label><span>${m.spouseVillage}</span></div>` : ''}
+        ${m.membershipCode ? `<div class="detail-item"><label>Code</label><span>${m.membershipCode}</span></div>` : ''}
+        ${lastPayment ? `<div class="detail-item"><label>Last Payment</label><span>${lastPayment}</span></div>` : ''}
+        ${m.paymentHistory.length ? `<div class="detail-item"><label>Payment Count</label><span>${m.paymentHistory.length} entries</span></div>` : ''}
+      </div>
+    </div>
+
+    ${m.profileUrl ? `<div style="margin-top:8px"><a href="${m.profileUrl}" target="_blank" style="font-size:13px">View full profile →</a></div>` : ''}
+  `;
+
+  document.getElementById('modal-overlay').classList.add('open');
 }
 
-function openM(i){
-  var m=current[i];if(!m)return;
-  var col=hc(m.name),sc=statusColor(m.status);
-  var av=document.getElementById('mav');
-  av.style.background=col.bg;av.style.color=col.c;av.textContent=ini(m.name);
-  document.getElementById('mname').textContent=m.name;
-  document.getElementById('msub').innerHTML='<span style="background:'+sc[0]+';color:'+sc[1]+';font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500">'+esc(statusLabel(m.status))+'</span>'+(m.village?' &nbsp;'+esc(m.village):'');
-  var addr=[m.address,m.city,m.state].filter(Boolean).join(', ');
-  var b='<div class="msect"><div class="msect-title">Member</div><div class="fg2">';
-  if(m.phone)b+='<div class="fg"><div class="fl">Phone</div><div class="fv"><a href="tel:'+esc(m.phone)+'">'+esc(m.phone)+'</a></div></div>';
-  if(m.email)b+='<div class="fg"><div class="fl">Email</div><div class="fv"><a href="mailto:'+esc(m.email)+'">'+esc(m.email)+'</a></div></div>';
-  b+='</div>';
-  if(addr)b+='<div class="fg"><div class="fl">Address</div><div class="fv">'+esc(addr)+'</div></div>';
-  if(m.village)b+='<div class="fg"><div class="fl">Village</div><div class="fv">'+esc(m.village)+'</div></div>';
-  b+='</div>';
-  if(m.spouse){
-    b+='<div class="msect"><div class="msect-title">Spouse — '+esc(m.spouse)+'</div><div class="fg2">';
-    if(m.spouse_phone)b+='<div class="fg"><div class="fl">Phone</div><div class="fv"><a href="tel:'+esc(m.spouse_phone)+'">'+esc(m.spouse_phone)+'</a></div></div>';
-    if(m.spouse_email)b+='<div class="fg"><div class="fl">Email</div><div class="fv"><a href="mailto:'+esc(m.spouse_email)+'">'+esc(m.spouse_email)+'</a></div></div>';
-    b+='</div>';
-    if(m.spouse_village)b+='<div class="fg"><div class="fl">Village (wife)</div><div class="fv">'+esc(m.spouse_village)+'</div></div>';
-    b+='</div>';
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-overlay')) {
+    document.getElementById('modal-overlay').classList.remove('open');
   }
-  var shown=['First Name','Last Name','Name','Membership Status','Status','Email','Primary Email','Home Phone','Cell Phone','Phone','Address','Street Address','City','State','Village','Husband Village','Spouse Name','Spouse First Name','Spouse Cell','Spouse Phone','Spouse Village','Wife Village','Spouse Email'];
-  var extras=[];
-  if(m.raw){Object.keys(m.raw).forEach(function(k){if(shown.indexOf(k)===-1&&m.raw[k])extras.push([k,String(m.raw[k])]);});}
-  if(extras.length){
-    b+='<div class="msect"><div class="msect-title">Additional</div>';
-    extras.forEach(function(p){b+='<div class="fg"><div class="fl">'+esc(p[0])+'</div><div class="fv">'+esc(p[1])+'</div></div>';});
-    b+='</div>';
-  }
-  document.getElementById('mbody').innerHTML=b;
-  document.getElementById('overlay').classList.add('open');
 }
 
-function closeM(){document.getElementById('overlay').classList.remove('open');}
-document.getElementById('mcls').addEventListener('click',closeM);
-document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeM();});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeM();});
-document.getElementById('search').addEventListener('input',go);
-document.getElementById('search').addEventListener('keyup',go);
-document.getElementById('fsel').addEventListener('change',go);
-document.getElementById('vsel').addEventListener('change',go);
-document.getElementById('ssel').addEventListener('change',go);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('modal-overlay').classList.remove('open');
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.getElementById('search').focus();
+  }
+});
 
-loadData();
+loadMembers();
 </script>
 </body>
 </html>
