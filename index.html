@@ -706,6 +706,19 @@
 let allMembers = [];
 let filtered = [];
 
+function updateInfoHref(m) {
+  const name = encodeURIComponent(m.firstName + ' ' + m.lastName);
+  const subject = encodeURIComponent('Update Request: ' + m.firstName + ' ' + m.lastName);
+  const body = encodeURIComponent('Hello,
+
+I would like to request the following changes for ' + m.firstName + ' ' + m.lastName + ':
+
+(Please describe the changes needed)
+
+Thank you');
+  return 'mailto:slps.socal@gmail.com?subject=' + subject + '&body=' + body;
+}
+
 async function loadMembers() {
   try {
     const res = await fetch('/.netlify/functions/members');
@@ -830,7 +843,7 @@ function renderGrid(members) {
         ${m.village ? `<span class="village-tag">${m.village}</span>` : '<span></span>'}
         <span class="member-id">#${m.uniqId ? m.uniqId.replace(/_+/g,' ').trim().split(' ').slice(0,2).join(' ') : m.id.slice(-6)}</span>
       </div>
-      <a class="modal-action-btn btn-update" style="display:flex;margin-top:10px;text-decoration:none;" href="mailto:slps.socal@gmail.com?subject=Update%20Request%3A%20${encodeURIComponent(m.firstName + ' ' + m.lastName)}&body=Hello%2C%0A%0AI%20would%20like%20to%20request%20the%20following%20changes%20for%20${encodeURIComponent(m.firstName + ' ' + m.lastName)}%3A%0A%0A(Please%20describe%20the%20changes%20needed)%0A%0AThank%20you" onclick="event.stopPropagation()">Update Info</a>
+      <a class="modal-action-btn btn-update" style="display:flex;margin-top:10px;text-decoration:none;" href="${updateInfoHref(m)}" onclick="event.stopPropagation()">Update Info</a>
     </div>
   `).join('');
 }
