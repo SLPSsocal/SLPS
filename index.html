@@ -27,7 +27,6 @@
     min-height: 100vh;
   }
 
-  /* ── HEADER ── */
   header {
     background: var(--deep);
     padding: 16px 20px;
@@ -40,587 +39,264 @@
     box-shadow: 0 2px 20px rgba(0,0,0,0.3);
   }
 
-  .header-top {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .header-top { display: flex; align-items: center; gap: 12px; }
 
   .logo-mark {
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
     background: var(--saffron);
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    color: white;
-    font-size: 18px;
-    flex-shrink: 0;
+    font-weight: 700; color: white; font-size: 18px; flex-shrink: 0;
   }
 
   .header-text h1 {
     font-family: 'Playfair Display', serif;
-    color: white;
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.1;
+    color: white; font-size: 17px; font-weight: 700; line-height: 1.1;
   }
 
   .header-text p {
-    color: rgba(255,255,255,0.5);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-top: 2px;
+    color: rgba(255,255,255,0.5); font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px;
   }
 
-  .header-controls {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-  }
+  .header-controls { display: flex; gap: 8px; width: 100%; }
 
   .header-controls input {
-    flex: 1;
+    flex: 1; min-width: 0;
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: white;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: all 0.2s;
-    min-width: 0;
+    border-radius: 8px; padding: 10px 14px;
+    color: white; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none;
   }
 
   .header-controls input::placeholder { color: rgba(255,255,255,0.35); }
-  .header-controls input:focus {
-    border-color: var(--saffron);
-    background: rgba(255,255,255,0.12);
-  }
+  .header-controls input:focus { border-color: var(--saffron); }
 
   .header-controls select {
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 8px;
-    padding: 10px 10px;
-    color: white;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    flex-shrink: 0;
-    max-width: 140px;
+    border-radius: 8px; padding: 10px;
+    color: white; font-family: 'DM Sans', sans-serif; font-size: 13px;
+    outline: none; cursor: pointer; flex-shrink: 0; max-width: 140px;
   }
 
   .header-controls select option { background: #2a2218; color: white; }
-  .header-controls select:focus { border-color: var(--saffron); }
 
-  /* ── STATS BAR ── */
   .stats-bar {
-    background: white;
-    border-bottom: 1px solid var(--border);
-    padding: 10px 16px;
-    display: flex;
-    gap: 0;
-    align-items: stretch;
-    font-size: 11px;
-    color: var(--muted);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    background: white; border-bottom: 1px solid var(--border);
+    padding: 10px 16px; display: flex; align-items: stretch;
+    font-size: 11px; color: var(--muted);
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
   }
-
   .stats-bar::-webkit-scrollbar { display: none; }
 
   .stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    padding: 4px 10px;
-    border-right: 1px solid var(--border);
-    flex-shrink: 0;
-    white-space: nowrap;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    padding: 4px 10px; border-right: 1px solid var(--border); flex-shrink: 0;
   }
+  .stat:last-child { border-right: none; margin-left: auto; padding-left: 16px; }
+  .stat strong { color: var(--deep); font-weight: 600; font-size: 14px; line-height: 1; }
+  .stat-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .stat-top { display: flex; align-items: center; gap: 4px; }
 
-  .stat:last-child {
-    border-right: none;
-    margin-left: auto;
-    padding-left: 16px;
-  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
 
-  .stat strong {
-    color: var(--deep);
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 1;
-  }
+  main { padding: 16px; max-width: 1600px; margin: 0 auto; }
 
-  .stat-label {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-  }
-
-  .stat-top {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    display: inline-block;
-    flex-shrink: 0;
-  }
-
-  /* ── MAIN ── */
-  main {
-    padding: 16px;
-    max-width: 1600px;
-    margin: 0 auto;
-  }
-
-  #loading {
-    text-align: center;
-    padding: 60px 0;
-    color: var(--muted);
-    font-size: 15px;
-  }
+  #loading { text-align: center; padding: 60px 0; color: var(--muted); font-size: 15px; }
 
   .spinner {
     width: 36px; height: 36px;
-    border: 3px solid var(--border);
-    border-top-color: var(--saffron);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 16px;
+    border: 3px solid var(--border); border-top-color: var(--saffron);
+    border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px;
   }
-
   @keyframes spin { to { transform: rotate(360deg); } }
 
   #error-msg {
-    display: none;
-    background: #fff0f0;
-    border: 1px solid #ffcccc;
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin: 20px 0;
-    color: #c0392b;
-    font-size: 14px;
-    line-height: 1.6;
+    display: none; background: #fff0f0; border: 1px solid #ffcccc;
+    border-radius: 10px; padding: 16px 20px; margin: 20px 0;
+    color: #c0392b; font-size: 14px; line-height: 1.6;
   }
 
-  /* ── GRID ── */
-  #grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
+  #grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 
-  /* ── CARD ── */
+  /* CARD */
   .card {
     background: var(--card-bg);
-    border-radius: 14px;
-    border: 1px solid var(--border);
-    padding: 16px 18px;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
+    border-radius: 14px; border: 1px solid var(--border);
+    padding: 16px 18px; cursor: pointer;
+    transition: all 0.2s; position: relative; overflow: hidden;
     -webkit-tap-highlight-color: transparent;
   }
 
   .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--border);
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--border);
   }
-
-  .card.status-active::before { background: var(--active); }
   .card.status-life::before { background: var(--life); }
   .card.status-annual::before { background: var(--saffron); }
 
   @media (hover: hover) {
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-      border-color: var(--saffron-light);
-    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.12); border-color: var(--saffron-light); }
   }
-
   .card:active { opacity: 0.85; }
 
-  .card-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
+  .card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
 
   .avatar {
-    width: 42px; height: 42px;
-    border-radius: 10px;
-    background: var(--saffron);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    color: white;
-    font-size: 16px;
-    flex-shrink: 0;
+    width: 42px; height: 42px; border-radius: 10px; background: var(--saffron);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-weight: 700; color: white; font-size: 16px; flex-shrink: 0;
   }
-
-  .avatar.life-member { background: var(--life); }
+  .avatar.life-active { background: var(--life); }
   .avatar.life-voting { background: #2255A4; }
   .avatar.inactive { background: #C5BAB0; }
 
-  .card-name {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .card-name h3 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 1.2;
-    color: var(--deep);
-  }
-
-  .card-name .spouse {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .card-name { flex: 1; min-width: 0; }
+  .card-name h3 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 15px; line-height: 1.2; }
+  .card-name .spouse { font-size: 12px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   .status-badge {
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 3px 7px;
-    border-radius: 20px;
-    flex-shrink: 0;
-    margin-top: 2px;
-    white-space: nowrap;
+    font-size: 9px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 7px; border-radius: 20px; flex-shrink: 0; margin-top: 2px; white-space: nowrap;
   }
-
-  .badge-active { background: #E8F5EC; color: var(--active); }
-  .badge-life { background: #F3EAF9; color: var(--life); }
+  .badge-life   { background: #F3EAF9; color: var(--life); }
   .badge-voting { background: #EAF0F9; color: #2255A4; }
   .badge-annual { background: #FEF3E7; color: var(--saffron); }
   .badge-inactive { background: #F2F2F2; color: var(--inactive); }
-  .badge-youth { background: #FFF0F5; color: #C0397A; }
+  .badge-youth  { background: #FFF0F5; color: #C0397A; }
 
-  .card-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-size: 13px;
-    color: var(--muted);
-  }
-
-  .info-row {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    min-width: 0;
-  }
-
-  .info-row svg {
-    width: 12px; height: 12px;
-    flex-shrink: 0;
-    opacity: 0.55;
-  }
-
-  .info-row span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  .card-info { display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: var(--muted); }
+  .info-row { display: flex; align-items: center; gap: 7px; min-width: 0; }
+  .info-row svg { width: 12px; height: 12px; flex-shrink: 0; opacity: 0.55; }
+  .info-row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   .card-footer {
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
   }
-
   .village-tag {
-    background: rgba(232,135,26,0.1);
-    color: var(--saffron);
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-weight: 500;
-    font-size: 11px;
-    max-width: 60%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    background: rgba(232,135,26,0.1); color: var(--saffron);
+    padding: 2px 8px; border-radius: 6px; font-weight: 500; font-size: 11px;
+    max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
+  .member-id { font-size: 10px; opacity: 0.4; font-family: monospace; }
 
-  .member-id {
-    font-size: 10px;
-    opacity: 0.4;
-    font-family: monospace;
-  }
-
-  /* ── MODAL ── */
-  #modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(26,20,16,0.7);
-    z-index: 200;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    align-items: flex-end;
-    justify-content: center;
-    padding: 0;
-  }
-
-  #modal-overlay.open { display: flex; }
-
-  #modal {
-    background: var(--card-bg);
-    border-radius: 20px 20px 0 0;
+  /* UPDATE INFO BUTTON ON CARD */
+  .update-info-btn {
+    display: block;
     width: 100%;
-    max-height: 88vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 20px 20px 40px;
-    position: relative;
-  }
-
-  .modal-drag-handle {
-    width: 40px;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    margin: 0 auto 16px;
-  }
-
-  #modal-close {
-    position: absolute;
-    top: 16px; right: 16px;
-    background: var(--border);
+    margin-top: 12px;
+    padding: 9px 0;
+    background: #F3EAF9;
+    color: var(--life);
     border: none;
     border-radius: 8px;
-    width: 32px; height: 32px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    transition: all 0.15s;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  #modal-close:active { background: var(--saffron); color: white; }
-
-  .modal-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    margin-bottom: 20px;
-    padding-right: 40px;
-  }
-
-  .modal-avatar {
-    width: 56px; height: 56px;
-    border-radius: 14px;
-    background: var(--saffron);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    color: white;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
-
-  .modal-avatar.life-member { background: var(--life); }
-  .modal-avatar.life-voting { background: #2255A4; }
-  .modal-avatar.inactive { background: #C5BAB0; }
-
-  .modal-name h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  .modal-name .modal-spouse {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 3px;
-  }
-
-  .modal-section { margin-bottom: 18px; }
-
-  .modal-section h4 {
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 10px;
-  }
-
-  .detail-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .detail-item label {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-    display: block;
-    margin-bottom: 2px;
-  }
-
-  .detail-item span {
-    font-size: 13px;
-    color: var(--deep);
-    word-break: break-word;
-  }
-
-  .modal-action-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 16px;
-  }
-
-  .modal-action-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 12px;
-    border-radius: 10px;
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
     font-weight: 500;
+    text-align: center;
     text-decoration: none;
-    border: none;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: opacity 0.15s;
+  }
+  .update-info-btn:hover { background: #E8D5F5; text-decoration: none; }
+
+  /* MODAL */
+  #modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(26,20,16,0.7); z-index: 200;
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    align-items: flex-end; justify-content: center; padding: 0;
+  }
+  #modal-overlay.open { display: flex; }
+
+  #modal {
+    background: var(--card-bg); border-radius: 20px 20px 0 0;
+    width: 100%; max-height: 88vh; overflow-y: auto;
+    -webkit-overflow-scrolling: touch; padding: 20px 20px 40px; position: relative;
   }
 
-  .modal-action-btn:active { opacity: 0.7; }
+  .modal-drag-handle {
+    width: 40px; height: 4px; background: var(--border);
+    border-radius: 2px; margin: 0 auto 16px;
+  }
 
-  .btn-call { background: #E8F5EC; color: var(--active); }
-  .btn-email { background: #FEF3E7; color: var(--saffron); }
-  .btn-profile { background: #EAF0F9; color: #2255A4; grid-column: 1/-1; }
-  .btn-update { background: #F3EAF9; color: var(--life); width: 100%; font-size: 12px; text-align: center; border-radius: 8px; padding: 10px; margin-top: 10px; display: block; }
+  #modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--border); border: none; border-radius: 8px;
+    width: 32px; height: 32px; cursor: pointer; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); -webkit-tap-highlight-color: transparent;
+  }
+
+  .modal-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; padding-right: 40px; }
+
+  .modal-avatar {
+    width: 56px; height: 56px; border-radius: 14px; background: var(--saffron);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-weight: 700; color: white; font-size: 22px; flex-shrink: 0;
+  }
+  .modal-avatar.life-active { background: var(--life); }
+  .modal-avatar.life-voting { background: #2255A4; }
+  .modal-avatar.inactive { background: #C5BAB0; }
+
+  .modal-name h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; line-height: 1.2; }
+  .modal-name .modal-spouse { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+  .modal-section { margin-bottom: 18px; }
+  .modal-section h4 {
+    font-size: 9px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--saffron); margin-bottom: 10px;
+  }
+
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .detail-item label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); display: block; margin-bottom: 2px; }
+  .detail-item span { font-size: 13px; color: var(--deep); word-break: break-word; }
+
+  .modal-action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+
+  .modal-action-btn {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 12px; border-radius: 10px; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; text-decoration: none;
+    border: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .btn-call    { background: #E8F5EC; color: var(--active); }
+  .btn-email   { background: #FEF3E7; color: var(--saffron); }
+  .btn-admin   { background: #EAF0F9; color: #2255A4; grid-column: 1/-1; }
 
   a { color: var(--saffron); text-decoration: none; }
-  a:hover { text-decoration: underline; }
 
-  .no-results {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--muted);
-    grid-column: 1 / -1;
-  }
-
+  .no-results { text-align: center; padding: 60px 20px; color: var(--muted); grid-column: 1 / -1; }
   .no-results p { font-size: 14px; margin-top: 8px; }
 
-  /* ── TABLET: 2 columns ── */
   @media (min-width: 600px) {
-    header {
-      padding: 20px 28px;
-    }
-
-    .header-top { gap: 16px; }
+    header { padding: 20px 28px; }
     .logo-mark { width: 44px; height: 44px; font-size: 19px; }
     .header-text h1 { font-size: 19px; }
-
-    .header-controls input { font-size: 14px; }
-
     main { padding: 24px 28px; }
-
-    #grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .stats-bar { padding: 10px 28px; gap: 0; }
-
-    #modal {
-      border-radius: 20px;
-      max-width: 520px;
-      max-height: 85vh;
-      margin: auto;
-      padding: 28px;
-    }
-
-    #modal-overlay {
-      align-items: center;
-      padding: 20px;
-    }
-
+    #grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stats-bar { padding: 10px 28px; }
+    #modal { border-radius: 20px; max-width: 520px; max-height: 85vh; margin: auto; padding: 28px; }
+    #modal-overlay { align-items: center; padding: 20px; }
     .modal-drag-handle { display: none; }
-
-    #modal-close:hover { background: var(--saffron); color: white; }
   }
 
-  /* ── DESKTOP: 3+ columns ── */
   @media (min-width: 960px) {
-    header {
-      flex-direction: row;
-      align-items: center;
-      padding: 20px 40px;
-      gap: 20px;
-    }
-
+    header { flex-direction: row; align-items: center; padding: 20px 40px; gap: 20px; }
     .header-top { flex: 0 0 auto; }
     .header-text h1 { font-size: 21px; }
-
-    .header-controls {
-      margin-left: auto;
-      width: auto;
-    }
-
+    .header-controls { margin-left: auto; width: auto; }
     .header-controls input { width: 240px; flex: none; }
     .header-controls select { max-width: 160px; }
-
-    .stats-bar { padding: 10px 40px; font-size: 12px; }
-
+    .stats-bar { padding: 10px 40px; }
     .stat { flex-direction: row; gap: 6px; padding: 4px 16px; }
     .stat strong { font-size: 13px; }
     .stat-label { font-size: 12px; }
-
     main { padding: 28px 40px; }
-
-    #grid {
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-    }
+    #grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
   }
 </style>
 </head>
@@ -635,7 +311,7 @@
     </div>
   </div>
   <div class="header-controls">
-    <input type="search" id="search" placeholder="Search name, city, village…" oninput="filterMembers()" autocomplete="off" autocorrect="off" spellcheck="false">
+    <input type="search" id="search" placeholder="Search name, city, village…" oninput="filterMembers()" autocomplete="off" spellcheck="false">
     <select id="status-filter" onchange="filterMembers()">
       <option value="">All Members</option>
       <option value="Life Member - Active">Life · Active</option>
@@ -649,51 +325,23 @@
   </div>
 </header>
 
-<div class="stats-bar" id="stats-bar">
-  <div class="stat">
-    <div class="stat-top"><span class="dot" style="background:#2A6B3C"></span><strong id="count-life-active">–</strong></div>
-    <span class="stat-label">Life · Active</span>
-  </div>
-  <div class="stat">
-    <div class="stat-top"><span class="dot" style="background:#2255A4"></span><strong id="count-life-voting">–</strong></div>
-    <span class="stat-label">Life · Voting</span>
-  </div>
-  <div class="stat">
-    <div class="stat-top"><span class="dot" style="background:#E8871A"></span><strong id="count-annual">–</strong></div>
-    <span class="stat-label">Annual Dues</span>
-  </div>
-  <div class="stat">
-    <div class="stat-top"><span class="dot" style="background:#9E9E9E"></span><strong id="count-inactive">–</strong></div>
-    <span class="stat-label">Non-Active</span>
-  </div>
-  <div class="stat">
-    <div class="stat-top"><span class="dot" style="background:#C0397A"></span><strong id="count-youth">–</strong></div>
-    <span class="stat-label">Youth</span>
-  </div>
-  <div class="stat">
-    <div class="stat-top"><span class="dot" style="background:#C0392B"></span><strong id="count-deceased">–</strong></div>
-    <span class="stat-label">Deceased</span>
-  </div>
-  <div class="stat">
-    <div class="stat-top"><span class="dot" style="background:#B0B0B0"></span><strong id="count-business">–</strong></div>
-    <span class="stat-label">Business</span>
-  </div>
-  <div class="stat" style="margin-left:auto; border-right:none;">
-    <strong id="count-shown">–</strong>
-    <span class="stat-label">Showing</span>
-  </div>
+<div class="stats-bar">
+  <div class="stat"><div class="stat-top"><span class="dot" style="background:#2A6B3C"></span><strong id="count-life-active">–</strong></div><span class="stat-label">Life · Active</span></div>
+  <div class="stat"><div class="stat-top"><span class="dot" style="background:#2255A4"></span><strong id="count-life-voting">–</strong></div><span class="stat-label">Life · Voting</span></div>
+  <div class="stat"><div class="stat-top"><span class="dot" style="background:#E8871A"></span><strong id="count-annual">–</strong></div><span class="stat-label">Annual Dues</span></div>
+  <div class="stat"><div class="stat-top"><span class="dot" style="background:#9E9E9E"></span><strong id="count-inactive">–</strong></div><span class="stat-label">Non-Active</span></div>
+  <div class="stat"><div class="stat-top"><span class="dot" style="background:#C0397A"></span><strong id="count-youth">–</strong></div><span class="stat-label">Youth</span></div>
+  <div class="stat"><div class="stat-top"><span class="dot" style="background:#C0392B"></span><strong id="count-deceased">–</strong></div><span class="stat-label">Deceased</span></div>
+  <div class="stat"><div class="stat-top"><span class="dot" style="background:#B0B0B0"></span><strong id="count-business">–</strong></div><span class="stat-label">Business</span></div>
+  <div class="stat" style="margin-left:auto;border-right:none;"><strong id="count-shown">–</strong><span class="stat-label">Showing</span></div>
 </div>
 
 <main>
-  <div id="loading">
-    <div class="spinner"></div>
-    Loading members…
-  </div>
+  <div id="loading"><div class="spinner"></div>Loading members…</div>
   <div id="error-msg"></div>
   <div id="grid"></div>
 </main>
 
-<!-- Detail Modal -->
 <div id="modal-overlay" onclick="closeModal(event)">
   <div id="modal">
     <div class="modal-drag-handle"></div>
@@ -705,19 +353,6 @@
 <script>
 let allMembers = [];
 let filtered = [];
-
-function updateInfoHref(m) {
-  const name = encodeURIComponent(m.firstName + ' ' + m.lastName);
-  const subject = encodeURIComponent('Update Request: ' + m.firstName + ' ' + m.lastName);
-  const body = encodeURIComponent('Hello,
-
-I would like to request the following changes for ' + m.firstName + ' ' + m.lastName + ':
-
-(Please describe the changes needed)
-
-Thank you');
-  return 'mailto:slps.socal@gmail.com?subject=' + subject + '&body=' + body;
-}
 
 async function loadMembers() {
   try {
@@ -734,8 +369,7 @@ async function loadMembers() {
     document.getElementById('loading').style.display = 'none';
     const err = document.getElementById('error-msg');
     err.style.display = 'block';
-    err.innerHTML = `<strong>Could not load members.</strong><br>${e.message}<br><br>
-      <small>Check that the Netlify function is deployed and AIRTABLE_PAT is set.</small>`;
+    err.innerHTML = `<strong>Could not load members.</strong><br>${e.message}`;
   }
 }
 
@@ -761,43 +395,45 @@ function parseRecord(rec) {
     status: f['Current Status'] || '',
     isLifeMember: f['Life Member?'] === 'Yes',
     membershipCode: f['Membership Code'] || '',
-    gender: f.gender || '',
     uniqId: f['UNIQ ID'] || '',
-    profileUrl: `https://airtable.com/appts3pknGCDwe6bk/tblvbEMVk7zr24B2c/viwNrRzG9funeJggp/${rec.id}?blocks=hide`,
     paymentHistory: f['Payment History from archive DB'] || [],
+    airtableUrl: `https://airtable.com/appts3pknGCDwe6bk/tblvbEMVk7zr24B2c/viwNrRzG9funeJggp/${rec.id}?blocks=hide`,
   };
 }
 
+function avatarClass(m) {
+  if (m.status === 'Life Member - Active') return 'life-active';
+  if (m.status === 'Life Member - Voting') return 'life-voting';
+  if (m.status.includes('NON ACTIVE')) return 'inactive';
+  return '';
+}
+
 function statusClass(m) {
-  const s = m.status;
-  if (s === 'Life Member - Active') return 'status-life';
-  if (s === 'Life Member - Voting') return 'status-life';
-  if (s === 'Annual Dues Member Only') return 'status-annual';
+  if (m.status === 'Life Member - Active' || m.status === 'Life Member - Voting') return 'status-life';
+  if (m.status === 'Annual Dues Member Only') return 'status-annual';
   return '';
 }
 
 function badgeHTML(m) {
   const s = m.status;
-  if (s === 'Life Member - Active') return `<span class="status-badge badge-life">Life · Active</span>`;
-  if (s === 'Life Member - Voting') return `<span class="status-badge badge-voting">Life · Voting</span>`;
-  if (s === 'Life Member - Youth') return `<span class="status-badge badge-youth">Life · Youth</span>`;
-  if (s === 'Annual Dues Member Only') return `<span class="status-badge badge-annual">Annual Dues</span>`;
-  if (s === 'NON ACTIVE : Deceased') return `<span class="status-badge badge-inactive">Deceased</span>`;
-  if (s === 'NON ACTIVE') return `<span class="status-badge badge-inactive">Non-Active</span>`;
-  if (s === 'zBusiness') return `<span class="status-badge badge-inactive">Business</span>`;
+  if (s === 'Life Member - Active')   return `<span class="status-badge badge-life">Life · Active</span>`;
+  if (s === 'Life Member - Voting')   return `<span class="status-badge badge-voting">Life · Voting</span>`;
+  if (s === 'Life Member - Youth')    return `<span class="status-badge badge-youth">Life · Youth</span>`;
+  if (s === 'Annual Dues Member Only')return `<span class="status-badge badge-annual">Annual Dues</span>`;
+  if (s === 'NON ACTIVE : Deceased')  return `<span class="status-badge badge-inactive">Deceased</span>`;
+  if (s === 'NON ACTIVE')             return `<span class="status-badge badge-inactive">Non-Active</span>`;
+  if (s === 'zBusiness')              return `<span class="status-badge badge-inactive">Business</span>`;
   return `<span class="status-badge badge-inactive">${s || 'Unknown'}</span>`;
-}
-
-function avatarClass(m) {
-  const s = m.status;
-  if (s === 'Life Member - Active') return 'life-member';
-  if (s === 'Life Member - Voting') return 'life-voting';
-  if (s.includes('NON ACTIVE')) return 'inactive';
-  return '';
 }
 
 function initials(m) {
   return ((m.firstName[0] || '') + (m.lastName[0] || '')).toUpperCase();
+}
+
+function updateInfoHref(m) {
+  const subject = encodeURIComponent('Update Request: ' + m.firstName + ' ' + m.lastName);
+  const body = encodeURIComponent('Hello,\n\nI would like to request the following changes for ' + m.firstName + ' ' + m.lastName + ':\n\n(Please describe the changes needed)\n\nThank you');
+  return 'mailto:slps.socal@gmail.com?subject=' + subject + '&body=' + body;
 }
 
 function renderGrid(members) {
@@ -812,7 +448,9 @@ function renderGrid(members) {
     return;
   }
 
-  grid.innerHTML = members.map(m => `
+  grid.innerHTML = members.map(m => {
+    const href = updateInfoHref(m);
+    return `
     <div class="card ${statusClass(m)}" onclick="openModal('${m.id}')">
       <div class="card-header">
         <div class="avatar ${avatarClass(m)}">${initials(m)}</div>
@@ -823,64 +461,46 @@ function renderGrid(members) {
         ${badgeHTML(m)}
       </div>
       <div class="card-info">
-        ${m.city ? `<div class="info-row">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span>${m.city}${m.state ? ', ' + m.state : ''}</span>
-        </div>` : ''}
-        ${m.cell ? `<div class="info-row">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
-          <span>${m.cell}</span>
-        </div>` : (m.home ? `<div class="info-row">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span>${m.home}</span>
-        </div>` : '')}
-        ${m.email ? `<div class="info-row">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          <span>${m.email}</span>
-        </div>` : ''}
+        ${m.city ? `<div class="info-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>${m.city}${m.state ? ', ' + m.state : ''}</span></div>` : ''}
+        ${m.cell ? `<div class="info-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg><span>${m.cell}</span></div>` : (m.home ? `<div class="info-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>${m.home}</span></div>` : '')}
+        ${m.email ? `<div class="info-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>${m.email}</span></div>` : ''}
       </div>
       <div class="card-footer">
         ${m.village ? `<span class="village-tag">${m.village}</span>` : '<span></span>'}
         <span class="member-id">#${m.uniqId ? m.uniqId.replace(/_+/g,' ').trim().split(' ').slice(0,2).join(' ') : m.id.slice(-6)}</span>
       </div>
-      <a class="modal-action-btn btn-update" style="display:flex;margin-top:10px;text-decoration:none;" href="${updateInfoHref(m)}" onclick="event.stopPropagation()">Update Info</a>
-    </div>
-  `).join('');
+      <a class="update-info-btn" href="${href}" onclick="event.stopPropagation()">Update Info</a>
+    </div>`;
+  }).join('');
 }
 
 function updateStats() {
   const count = val => allMembers.filter(m => m.status === val).length;
   document.getElementById('count-life-active').textContent = count('Life Member - Active');
-  document.getElementById('count-life-voting').textContent = count('Life Member - Voting');
-  document.getElementById('count-annual').textContent = count('Annual Dues Member Only');
-  document.getElementById('count-inactive').textContent = count('NON ACTIVE');
-  document.getElementById('count-youth').textContent = count('Life Member - Youth');
-  document.getElementById('count-deceased').textContent = count('NON ACTIVE : Deceased');
-  document.getElementById('count-business').textContent = count('zBusiness');
+  document.getElementById('count-life-voting').textContent  = count('Life Member - Voting');
+  document.getElementById('count-annual').textContent       = count('Annual Dues Member Only');
+  document.getElementById('count-inactive').textContent     = count('NON ACTIVE');
+  document.getElementById('count-youth').textContent        = count('Life Member - Youth');
+  document.getElementById('count-deceased').textContent     = count('NON ACTIVE : Deceased');
+  document.getElementById('count-business').textContent     = count('zBusiness');
 }
 
 function filterMembers() {
-  const q = document.getElementById('search').value.toLowerCase();
+  const q  = document.getElementById('search').value.toLowerCase();
   const sf = document.getElementById('status-filter').value;
-
   filtered = allMembers.filter(m => {
-    const matchQ = !q || [m.firstName, m.lastName, m.city, m.village, m.email, m.cell, m.home, m.spouseFirst, m.spouseLast]
-      .join(' ').toLowerCase().includes(q);
+    const matchQ = !q || [m.firstName, m.lastName, m.city, m.village, m.email, m.cell, m.home, m.spouseFirst, m.spouseLast].join(' ').toLowerCase().includes(q);
     const matchS = !sf || m.status === sf;
     return matchQ && matchS;
   });
-
   renderGrid(filtered);
 }
 
 function openModal(id) {
   const m = allMembers.find(x => x.id === id);
   if (!m) return;
-
   const phone = m.cell || m.home || '';
-  const lastPayment = m.paymentHistory.length
-    ? m.paymentHistory[m.paymentHistory.length - 1]
-    : null;
+  const lastPayment = m.paymentHistory.length ? m.paymentHistory[m.paymentHistory.length - 1] : null;
 
   document.getElementById('modal-content').innerHTML = `
     <div class="modal-header">
@@ -892,27 +512,20 @@ function openModal(id) {
       </div>
     </div>
 
-    ${(phone || m.email) ? `
     <div class="modal-action-row">
-      ${phone ? `<a class="modal-action-btn btn-call" href="tel:${phone.replace(/\D/g,'')}">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call
-      </a>` : '<span></span>'}
-      ${m.email ? `<a class="modal-action-btn btn-email" href="mailto:${m.email}">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        Email
-      </a>` : '<span></span>'}
-      <a class="modal-action-btn btn-profile" href="${m.profileUrl}" target="_blank">Admin Edit</a>
-    </div>` : ''}
+      ${phone  ? `<a class="modal-action-btn btn-call"  href="tel:${phone.replace(/\D/g,'')}">📞 Call</a>` : '<span></span>'}
+      ${m.email ? `<a class="modal-action-btn btn-email" href="mailto:${m.email}">✉️ Email</a>` : '<span></span>'}
+      <a class="modal-action-btn btn-admin" href="${m.airtableUrl}" target="_blank">Admin Edit</a>
+    </div>
 
     <div class="modal-section" style="margin-top:18px">
       <h4>Contact</h4>
       <div class="detail-grid">
-        ${m.cell ? `<div class="detail-item"><label>Cell</label><span>${m.cell}</span></div>` : ''}
-        ${m.home ? `<div class="detail-item"><label>Home</label><span>${m.home}</span></div>` : ''}
-        ${m.email ? `<div class="detail-item" style="grid-column:1/-1"><label>Email</label><span>${m.email}</span></div>` : ''}
+        ${m.cell   ? `<div class="detail-item"><label>Cell</label><span>${m.cell}</span></div>` : ''}
+        ${m.home   ? `<div class="detail-item"><label>Home</label><span>${m.home}</span></div>` : ''}
+        ${m.email  ? `<div class="detail-item" style="grid-column:1/-1"><label>Email</label><span>${m.email}</span></div>` : ''}
         ${m.spouseMobile ? `<div class="detail-item"><label>Spouse Mobile</label><span>${m.spouseMobile}</span></div>` : ''}
-        ${m.spouseEmail ? `<div class="detail-item" style="grid-column:1/-1"><label>Spouse Email</label><span>${m.spouseEmail}</span></div>` : ''}
+        ${m.spouseEmail  ? `<div class="detail-item" style="grid-column:1/-1"><label>Spouse Email</label><span>${m.spouseEmail}</span></div>` : ''}
       </div>
     </div>
 
@@ -921,8 +534,8 @@ function openModal(id) {
       <h4>Address</h4>
       <div class="detail-grid">
         ${m.address ? `<div class="detail-item" style="grid-column:1/-1"><label>Street</label><span>${m.address}</span></div>` : ''}
-        ${m.city ? `<div class="detail-item"><label>City</label><span>${m.city}</span></div>` : ''}
-        ${m.state ? `<div class="detail-item"><label>State / ZIP</label><span>${m.state} ${m.zip || ''}</span></div>` : ''}
+        ${m.city    ? `<div class="detail-item"><label>City</label><span>${m.city}</span></div>` : ''}
+        ${m.state   ? `<div class="detail-item"><label>State / ZIP</label><span>${m.state} ${m.zip || ''}</span></div>` : ''}
       </div>
     </div>` : ''}
 
@@ -931,10 +544,10 @@ function openModal(id) {
       <div class="detail-grid">
         <div class="detail-item"><label>Status</label><span>${m.status}</span></div>
         <div class="detail-item"><label>Life Member</label><span>${m.isLifeMember ? 'Yes' : 'No'}</span></div>
-        ${m.village ? `<div class="detail-item"><label>Village</label><span>${m.village}</span></div>` : ''}
-        ${m.spouseVillage ? `<div class="detail-item"><label>Spouse Village</label><span>${m.spouseVillage}</span></div>` : ''}
+        ${m.village      ? `<div class="detail-item"><label>Village</label><span>${m.village}</span></div>` : ''}
+        ${m.spouseVillage? `<div class="detail-item"><label>Spouse Village</label><span>${m.spouseVillage}</span></div>` : ''}
         ${m.membershipCode ? `<div class="detail-item"><label>Code</label><span>${m.membershipCode}</span></div>` : ''}
-        ${lastPayment ? `<div class="detail-item"><label>Last Payment</label><span>${lastPayment}</span></div>` : ''}
+        ${lastPayment    ? `<div class="detail-item"><label>Last Payment</label><span>${lastPayment}</span></div>` : ''}
         ${m.paymentHistory.length ? `<div class="detail-item"><label>Payment History</label><span>${m.paymentHistory.length} entries</span></div>` : ''}
       </div>
     </div>
@@ -952,10 +565,7 @@ function closeModal(e) {
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.getElementById('modal-overlay').classList.remove('open');
-  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-    e.preventDefault();
-    document.getElementById('search').focus();
-  }
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); document.getElementById('search').focus(); }
 });
 
 loadMembers();
