@@ -321,7 +321,7 @@
     </div>
   </div>
   <div class="header-controls">
-    <input type="search" id="search" placeholder="Search name, city, village…" oninput="filterMembers()" autocomplete="off" spellcheck="false">
+    <input type="search" id="search" placeholder="Search anything — name, phone, village, email…" oninput="filterMembers()" autocomplete="off" spellcheck="false">
     <select id="status-filter" onchange="filterMembers()">
       <option value="">All Members</option>
       <option value="Life Member - Active">Life · Active</option>
@@ -389,28 +389,13 @@
 let allMembers = [];
 let filtered = [];
 
-const AIRTABLE_PAT = 'pat5wEycSpIBV2v9v.762c93702e0299de23094f169f6d3d2213d5c862bdbb793352044f7e7911be7b';
-const BASE_ID = 'appts3pknGCDwe6bk';
-const TABLE_ID = 'tblvbEMVk7zr24B2c';
-const VIEW_ID = 'viwNrRzG9funeJggp';
-
 async function loadMembers() {
   try {
-    let allRecords = [];
-    let offset = null;
-    do {
-      const url = new URL(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`);
-      url.searchParams.set('view', VIEW_ID);
-      url.searchParams.set('pageSize', '100');
-      if (offset) url.searchParams.set('offset', offset);
-      const res = await fetch(url.toString(), {
-        headers: { 'Authorization': `Bearer ${AIRTABLE_PAT}` }
-      });
-      if (!res.ok) throw new Error(`Airtable error ${res.status}: ${await res.text()}`);
-      const data = await res.json();
-      allRecords = allRecords.concat(data.records || []);
-      offset = data.offset || null;
-    } while (offset);
+    const res = await fetch('/.netlify/functions/members');
+    if (!res.ok) throw new Error(`Server error ${res.status}: ${await res.text()}`);
+    const data = await res.json();
+    if (data.error) throw new Error(JSON.stringify(data));
+    const allRecords = data.records || [];
 
     allMembers = allRecords.map(parseRecord).filter(m => m.firstName);
     updateStats();
@@ -544,14 +529,61 @@ function setStatFilter(val) {
   filterMembers();
 }
 
+function norm(s) { return (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+function digitsOf(s) { return (s || '').toString().replace(/\D/g, ''); }
+
+function ensureIndex(m) {
+  if (m._blob !== undefined) return;
+  m._name   = norm(m.firstName + ' ' + m.lastName);
+  m._nameW  = m._name.split(/\s+/).filter(Boolean);
+  m._sp     = norm(m.spouseFirst + ' ' + m.spouseLast);
+  m._vil    = norm(m.village);
+  m._svil   = norm(m.spouseVillage);
+  m._city   = norm(m.city);
+  m._digits = [digitsOf(m.cell), digitsOf(m.home), digitsOf(m.spouseMobile)].join('|');
+  m._blob   = norm([m.firstName, m.lastName, m.spouseFirst, m.spouseLast, m.city, m.state, m.zip,
+                    m.address, m.village, m.spouseVillage, m.email, m.spouseEmail,
+                    m.membershipCode, m.uniqId].join(' '));
+}
+
+function scoreMember(m, tokens) {
+  ensureIndex(m);
+  let score = 0;
+  for (const t of tokens) {
+    let hit = 0;
+    if (/^\d+$/.test(t) && t.length >= 3 && m._digits.includes(t)) hit = 15;
+    else if (m._name === t) hit = 60;
+    else if (m._nameW.some(w => w === t)) hit = 40;
+    else if (m._nameW.some(w => w.startsWith(t))) hit = 30;
+    else if (m._name.includes(t)) hit = 18;
+    else if (m._sp.split(/\s+/).some(w => w.startsWith(t))) hit = 14;
+    else if (m._vil.startsWith(t) || m._city.startsWith(t)) hit = 12;
+    else if (m._vil.includes(t) || m._city.includes(t) || m._svil.includes(t)) hit = 8;
+    else if (m._blob.includes(t)) hit = 2;
+    if (!hit) return 0;   // every word must match somewhere
+    score += hit;
+  }
+  return score;
+}
+
 function filterMembers() {
-  const q  = document.getElementById('search').value.toLowerCase();
-  const sf = document.getElementById('status-filter').value;
-  filtered = allMembers.filter(m => {
-    const matchQ = !q || [m.firstName, m.lastName, m.city, m.village, m.email, m.cell, m.home, m.spouseFirst, m.spouseLast].join(' ').toLowerCase().includes(q);
-    const matchS = !sf || m.status === sf;
-    return matchQ && matchS;
-  });
+  const raw = document.getElementById('search').value.trim();
+  const sf  = document.getElementById('status-filter').value;
+  const tokens = norm(raw).split(/[^a-z0-9@.]+/).filter(Boolean);
+
+  filtered = [];
+  for (const m of allMembers) {
+    if (sf && m.status !== sf) continue;
+    if (tokens.length) {
+      const sc = scoreMember(m, tokens);
+      if (!sc) continue;
+      m._score = sc;
+    } else m._score = 0;
+    filtered.push(m);
+  }
+  if (tokens.length) {
+    filtered.sort((a, b) => b._score - a._score || a._name.localeCompare(b._name));
+  }
   renderGrid(filtered);
 }
 
